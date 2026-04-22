@@ -61,7 +61,7 @@ export default function HomePage() {
 
           <h1 className="display fade-up" style={{ fontSize: 'clamp(56px, 10vw, 120px)', marginBottom: '24px' }}>
             FIND EVERY<br />
-            <span style={{ color: 'var(--amber)', WebkitTextStroke: '2px var(--amber)', color: 'transparent' }}>
+            <span style={{ WebkitTextStroke: '2px var(--amber)', color: 'transparent' }}>
               PART
             </span>{' '}
             FAST
