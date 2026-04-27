@@ -138,7 +138,7 @@ export default function HomePage() {
               { n: '288+', label: 'Parts in Stock' },
               { n: '24',   label: 'Categories' },
               { n: 'COD',  label: 'Cash on Delivery' },
-              { n: 'LKS',  label: 'Lusaka Delivery' },
+              { n: 'LSK',  label: 'Lusaka Delivery' },
             ].map(s => (
               <div key={s.n} style={{ padding: '28px 16px', textAlign: 'center' }}>
                 <div className="display text-amber" style={{ fontSize: '36px' }}>{s.n}</div>
