@@ -17,7 +17,7 @@ const MAKES = [
 const TICKER_ITEMS = [
   'GENUINE PARTS ONLY', 'LUSAKA DELIVERY', 'CASH ON DELIVERY',
   '288+ PARTS IN STOCK', 'TOYOTA · NISSAN · HONDA · MITSUBISHI',
-  '27 YEARS OF TRUST', 'SAME-DAY DISPATCH',
+  'PARTS AT YOUR CONVENIENCE', 'SAME-DAY DISPATCH',
 ]
 
 // ─── Animated counter hook ───────────────────────────────────────────────────
@@ -724,7 +724,7 @@ export default function HomePage() {
           {/* Eyebrow */}
           <div className="eyebrow animate-fade-up delay-1">
             <span className="eyebrow-dot" />
-            <span className="eyebrow-text">Lusaka · Zambia · Established 1997</span>
+            <span className="eyebrow-text">Lusaka · Zambia · Est 2026</span>
           </div>
 
           {/* Headline */}
@@ -845,7 +845,7 @@ export default function HomePage() {
       <div className="cta-section">
         <div className="cta-glow" />
         <h2 className="cta-title">READY TO FIND<br />YOUR PART?</h2>
-        <p className="cta-sub">288 parts in stock. Genuine only. More arriving weekly.</p>
+        <p className="cta-sub">288+ parts in stock. Genuine Suppliers. Stock updated weekly.</p>
         <a href="/search" className="cta-btn">
           Browse All Parts
           <span className="arrow">→</span>
@@ -858,7 +858,7 @@ export default function HomePage() {
           { icon: '✓', text: 'Genuine Parts Only' },
           { icon: '🚚', text: 'Lusaka Delivery' },
           { icon: '💵', text: 'Cash on Delivery' },
-          { icon: '🛡', text: '27 Years Trusted' },
+          { icon: '🛡', text: 'Multiple Trusted Sellers' },
           { icon: '📞', text: 'WhatsApp Support' },
         ].map(t => (
           <div key={t.text} className="trust-item">
