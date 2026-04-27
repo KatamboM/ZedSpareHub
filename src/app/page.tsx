@@ -781,7 +781,7 @@ export default function HomePage() {
       <div className="stats-strip" ref={statsRef}>
         <div className="stats-inner">
           <div className="stat-item">
-            <div className="stat-number">{statsVisible ? count288+ : 0}+</div>
+            <div className="stat-number">{statsVisible ? count288 : 0}+</div>
             <div className="stat-label">Parts in Stock</div>
           </div>
           <div className="stat-item">
@@ -793,8 +793,8 @@ export default function HomePage() {
             <div className="stat-label">Cash on Delivery</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number">{statsVisible ? count10+ : 0}</div>
-            <div className="stat-label">Readily Available Riders</div>
+            <div className="stat-number">{statsVisible ? count27 : 0}YR</div>
+            <div className="stat-label">In Business</div>
           </div>
         </div>
       </div>
