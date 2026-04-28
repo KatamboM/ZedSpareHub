@@ -855,9 +855,9 @@ export default function HomePage() {
       {/* ── Trust bar ──────────────────────────────────────────────── */}
       <div className="trust-bar">
         {[
-          { icon: '✓', text: 'Genuine Parts Only' },
+          { icon: '✓', text: 'Quality Parts From Verified Sellers' },
           { icon: '🚚', text: 'Lusaka Delivery' },
-          { icon: '💵', text: 'Cash on Delivery' },
+          { icon: '💵', text: 'Easy Price Access' },
           { icon: '🛡', text: 'Multiple Trusted Sellers' },
           { icon: '📞', text: 'WhatsApp Support' },
         ].map(t => (
