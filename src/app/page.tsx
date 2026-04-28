@@ -15,7 +15,7 @@ const MAKES = [
 ]
 
 const TICKER_ITEMS = [
-  'GENUINE PARTS ONLY', 'LUSAKA DELIVERY', 'CASH ON DELIVERY',
+  'GENUINE PARTS ONLY', 'LUSAKA DELIVERY', 'TRUSTED SELLERS',
   '288+ PARTS IN STOCK', 'TOYOTA · NISSAN · HONDA · MITSUBISHI',
   'PARTS AT YOUR CONVENIENCE', 'SAME-DAY DISPATCH',
 ]
@@ -793,8 +793,8 @@ export default function HomePage() {
             <div className="stat-label">Cash on Delivery</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number">{statsVisible ? count27 : 0}YR</div>
-            <div className="stat-label">In Business</div>
+            <div className="stat-number">{statsVisible ? count✅ : 0}</div>
+            <div className="stat-label">Veried Seller Network</div>
           </div>
         </div>
       </div>
@@ -855,7 +855,7 @@ export default function HomePage() {
       {/* ── Trust bar ──────────────────────────────────────────────── */}
       <div className="trust-bar">
         {[
-          { icon: '✓', text: 'Quality Parts From Verified Sellers' },
+          { icon: '✅', text: 'Quality Parts From Verified Sellers' },
           { icon: '🚚', text: 'Lusaka Delivery' },
           { icon: '💵', text: 'Easy Price Access' },
           { icon: '🛡', text: 'Multiple Trusted Sellers' },
