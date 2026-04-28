@@ -793,8 +793,8 @@ export default function HomePage() {
             <div className="stat-label">Cash on Delivery</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number">{statsVisible ? count✅ : 0}</div>
-            <div className="stat-label">Veried Seller Network</div>
+            <div className="stat-number">{statsVisible ? count5+ : 0}</div>
+            <div className="stat-label">Veried Sellers</div>
           </div>
         </div>
       </div>
