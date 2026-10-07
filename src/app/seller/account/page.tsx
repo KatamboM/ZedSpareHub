@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase'
 
 type SellerProfile = { user_id: string; store_name: string; status: 'pending' | 'approved' | 'suspended' }
 type SellerPart = { id: number; sku_id: string; part_name: string; part_number: string | null; car_make: string | null; car_model: string | null; engine_code: string | null; qty_in_stock: number | null; sell_price_zmw: number | null; status: string }
-type SellerOrder = { id: number; order_group_id: string | null; buyer_name: string; buyer_phone: string; buyer_location: string; part_name: string | null; sell_price_zmw: number | null; status: string; created_at: string }
+type SellerOrder = { id: number; order_group_id: string | null; buyer_name: string; buyer_phone: string; buyer_location: string; part_name: string | null; quantity: number; sell_price_zmw: number | null; status: string; created_at: string }
 
 const orderStatuses = ['Request Received', 'Seller Confirmed', 'Dispatched', 'Delivered', 'Closed', 'Cancelled']
 
@@ -32,7 +32,7 @@ export default function SellerAccountPage() {
     }
     const [partsResult, ordersResult] = await Promise.all([
       supabase.from('parts').select('id,sku_id,part_name,part_number,car_make,car_model,engine_code,qty_in_stock,sell_price_zmw,status').eq('seller_user_id', id).order('created_at', { ascending: false }),
-      supabase.from('orders').select('id,order_group_id,buyer_name,buyer_phone,buyer_location,part_name,sell_price_zmw,status,created_at').eq('seller_user_id', id).order('created_at', { ascending: false }).limit(50),
+      supabase.from('orders').select('id,order_group_id,buyer_name,buyer_phone,buyer_location,part_name,quantity,sell_price_zmw,status,created_at').eq('seller_user_id', id).order('created_at', { ascending: false }).limit(50),
     ])
     if (partsResult.error || ordersResult.error) setMessage('We could not load all seller information. Refresh the page or contact support.')
     setProducts((partsResult.data || []) as SellerPart[])
@@ -233,7 +233,7 @@ export default function SellerAccountPage() {
                 {orders.map(order => (
                   <article className="seller-order" key={order.id}>
                     <div>
-                      <p className="fw-600">{order.part_name || 'Part request'} · {order.sell_price_zmw ? `K${Number(order.sell_price_zmw).toLocaleString()}` : 'Price to confirm'}</p>
+                      <p className="fw-600">{order.part_name || 'Part request'} · Qty {order.quantity} · {order.sell_price_zmw ? `K${(Number(order.sell_price_zmw) * order.quantity).toLocaleString()}` : 'Price to confirm'}</p>
                       <p className="text-xs text-steel" style={{ marginTop: 5 }}>{order.buyer_name} · {order.buyer_phone} · {order.buyer_location}</p>
                       <p className="mono text-xs text-amber" style={{ marginTop: 5 }}>{order.order_group_id || `Order #${order.id}`} · {new Date(order.created_at).toLocaleDateString()}</p>
                     </div>
