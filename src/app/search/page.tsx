@@ -420,9 +420,16 @@ const CSS = `
   }
 
   /* ── Cards ── */
+  .card-brand { display: inline-flex; align-items: center; gap: 10px; color: #f1f5f9; font-size: 14px; font-weight: 600; }
+  .card-brand-logo { display: inline-flex; align-items: center; justify-content: center; width: 68px; height: 44px; padding: 6px 8px; background: #fff; border-radius: 8px; flex-shrink: 0; }
+  .card-brand-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .card-engine { color: #cbd5e1; font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
+  .card-seller { color: #cbd5e1; font-size: 13px; line-height: 1.6; margin-top: 8px; }
+  .part-card:focus-visible { outline: 3px solid var(--amber); outline-offset: 4px; }
+
   .part-card {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
+    background: #1b2535;
+    border: 1px solid #445168;
     border-radius: 16px;
     padding: 24px;
     text-decoration: none;
@@ -460,21 +467,21 @@ const CSS = `
   }
   .card-category {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    font-size: 11px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--steel);
-    background: rgba(255,255,255,0.04);
+    color: #d5deeb;
+    background: rgba(255,255,255,0.08);
     padding: 4px 10px;
     border-radius: 6px;
   }
 
   .card-title {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.4;
-    margin-bottom: 8px;
-    color: var(--text);
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.45;
+    margin-bottom: 10px;
+    color: #f8fafc;
   }
   .card-part-number {
     font-family: 'JetBrains Mono', monospace;
@@ -490,8 +497,8 @@ const CSS = `
     margin-bottom: 16px;
   }
   .card-meta-item {
-    font-size: 12px;
-    color: var(--steel);
+    font-size: 13px;
+    color: #cbd5e1;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -506,8 +513,8 @@ const CSS = `
   }
   .card-price {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 24px;
-    color: var(--amber);
+    font-size: 30px;
+    color: #ffcb52;
     letter-spacing: 0.02em;
   }
   .card-price-request {
@@ -538,7 +545,7 @@ const CSS = `
   }
   .badge-green { background: rgba(34,197,94,0.15); color: #4ade80; }
   .badge-amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
-  .badge-steel { background: rgba(255,255,255,0.06); color: var(--steel-light); }
+  .badge-steel { background: #34445c; color: #f1f5f9; border: 1px solid #64748b; }
   .badge-red { background: rgba(239,68,68,0.15); color: #f87171; }
 
   /* ── Skeleton ── */
@@ -701,6 +708,10 @@ const CSS = `
     .results-header { padding: 16px 24px; }
     .results-container { padding: 0 24px 60px; }
     .grid-3 { grid-template-columns: 1fr; }
+    .part-card-list { grid-template-columns: 1fr; gap: 16px; }
+    .part-card-list > div:last-child { text-align: left !important; }
+    .card-header { gap: 12px; flex-wrap: wrap; }
+    .card-meta { align-items: center; gap: 12px; }
     .search-form { flex-direction: column; }
     .search-btn { width: 100%; }
     .filter-group { min-width: 140px; }
@@ -728,6 +739,30 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 // ─── Part Card Component ─────────────────────────────────────────────────────
+const BRAND_LOGOS: Record<string, string> = {
+  'toyota': 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/toyota.png',
+  'mitsubishi': 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/mitsubishi.png',
+  'nissan': 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/nissan.png',
+  'honda': 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/honda.png',
+  'mazda': 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/mazda.png',
+  'subaru': 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/subaru.png',
+  'isuzu': 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/isuzu.png',
+  'suzuki': 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/suzuki.png',
+  'ford': 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/ford.png',
+  'hino': 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/hino.png',
+}
+
+function BrandLabel({ make }: { make: string }) {
+  const [failed, setFailed] = useState(false)
+  const logo = BRAND_LOGOS[make.trim().toLowerCase()]
+  return (
+    <span className="card-brand">
+      {logo && !failed && <span className="card-brand-logo"><img src={logo} alt="" width={52} height={32} loading="lazy" decoding="async" onError={() => setFailed(true)} /></span>}
+      <span>{make}</span>
+    </span>
+  )
+}
+
 function PartCard({ part, viewMode }: { part: Part; viewMode: ViewMode }) {
   if (viewMode === 'list') {
     return (
@@ -742,9 +777,9 @@ function PartCard({ part, viewMode }: { part: Part; viewMode: ViewMode }) {
           <h3 className="card-title" style={{ marginBottom: '4px' }}>{part.part_name}</h3>
           <p className="card-part-number">{part.part_number}</p>
           <div className="card-meta">
-            {part.car_make && <span className="card-meta-item">🚗 {part.car_make}</span>}
-            {part.car_model && <span className="card-meta-item">· {part.car_model}</span>}
-            {part.engine_code && <span className="card-meta-item">⚙️ {part.engine_code}</span>}
+            {part.car_make && <BrandLabel make={part.car_make} />}
+            {part.car_model && <span className="card-meta-item">Model: {part.car_model}</span>}
+            {part.engine_code && <span className="card-meta-item">Engine: {part.engine_code}</span>}
           </div>
         </div>
         <div style={{ textAlign: 'right' }}>
@@ -754,7 +789,7 @@ function PartCard({ part, viewMode }: { part: Part; viewMode: ViewMode }) {
             <div className="card-price-request">Price on request</div>
           )}
           <div className="card-action" style={{ marginTop: '8px', justifyContent: 'flex-end' }}>
-            View →
+            View details →
           </div>
         </div>
       </a>
@@ -772,16 +807,17 @@ function PartCard({ part, viewMode }: { part: Part; viewMode: ViewMode }) {
       <p className="card-part-number">{part.part_number}</p>
 
       <div className="card-meta">
-        {part.car_make && <span className="card-meta-item">🚗 {part.car_make}</span>}
-        {part.car_model && <span className="card-meta-item">· {part.car_model}</span>}
+        {part.car_make && <BrandLabel make={part.car_make} />}
+        {part.car_model && <span className="card-meta-item">Model: {part.car_model}</span>}
       </div>
 
       {part.engine_code && (
-        <p style={{ fontSize: '12px', color: 'var(--steel)', marginBottom: '8px' }}>
+        <p className="card-engine">
           Engine: <span style={{ color: 'var(--steel-light)' }}>{part.engine_code}</span>
         </p>
       )}
 
+      {part.seller && <p className="card-seller">Seller: {part.seller}</p>}
       <div className="card-footer">
         {part.sell_price_zmw ? (
           <span className="card-price">K{part.sell_price_zmw.toLocaleString()}</span>
