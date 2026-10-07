@@ -20,6 +20,7 @@ export type Part = {
   sell_price_zmw: number | null
   status: string
   notes: string | null
+  seller_user_id?: string | null
 }
 
 export type Order = {
@@ -35,5 +36,7 @@ export type Order = {
   delivery_zone: string
   notes: string | null
   status: string
+  order_group_id?: string | null
+  seller_user_id?: string | null
   created_at?: string
 }
