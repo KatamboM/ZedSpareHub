@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase'
+import styles from './stores.module.css'
 
 type StorePart = { seller: string | null; category: string | null; status: string | null }
 
@@ -22,10 +23,10 @@ export default async function StoresPage() {
       <h1 className="display" style={{ fontSize: 46, marginTop: 8 }}>OUR STORES</h1>
       <p className="text-sm text-steel" style={{ maxWidth: 620, lineHeight: 1.75, marginTop: 10 }}>Browse shops listing parts on ZedSpareHub. Stock is reconfirmed with each seller before an order is dispatched.</p>
       {list.length ? (
-        <div className="stores-grid">
+        <div className={styles.storesGrid}>
           {list.map(([name, store]) => (
-            <article className="card store-card" key={name}>
-              <div className="store-mark" aria-hidden="true">{name.split(/\s+/).slice(0, 2).map(word => word[0]).join('').toUpperCase()}</div>
+            <article className={`card ${styles.storeCard}`} key={name}>
+              <div className={styles.storeMark} aria-hidden="true">{name.split(/\s+/).slice(0, 2).map(word => word[0]).join('').toUpperCase()}</div>
               <div style={{ minWidth: 0, flex: 1 }}>
                 <p className="badge badge-green">Listed seller</p>
                 <h2 className="display" style={{ fontSize: 26, marginTop: 12 }}>{name}</h2>
@@ -43,12 +44,6 @@ export default async function StoresPage() {
           <a href="/search" className="btn btn-amber" style={{ marginTop: 18 }}>Browse Parts</a>
         </section>
       )}
-      <style jsx>{`
-        .stores-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin-top: 28px; }
-        .store-card { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 20px; }
-        .store-mark { width: 48px; height: 48px; display: grid; place-items: center; flex-shrink: 0; border-radius: 10px; color: var(--amber); background: rgba(240,165,0,.12); border: 1px solid rgba(240,165,0,.2); font-family: 'Bebas Neue', sans-serif; font-size: 20px; }
-        @media (max-width: 700px) { .stores-grid { grid-template-columns: 1fr; } }
-      `}</style>
     </main>
   )
 }
