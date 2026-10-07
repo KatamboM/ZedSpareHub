@@ -38,6 +38,7 @@ export default function CartPage() {
       buyer_phone: form.buyer_phone.trim(),
       buyer_location: form.buyer_location.trim(),
       part_sku_id: item.sku_id,
+      quantity: item.quantity,
       part_name: item.part_name,
       part_number: item.part_number,
       seller: item.seller,
