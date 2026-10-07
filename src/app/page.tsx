@@ -26,14 +26,14 @@ const POPULAR_PARTS = [
 ]
 
 const MAKES = [
-  { name: 'Toyota', count: 180, flag: '🇯🇵', color: '#EB0A1E' },
-  { name: 'Mitsubishi', count: 40, flag: '🇯🇵', color: '#E60012' },
-  { name: 'Nissan', count: 35, flag: '🇯🇵', color: '#C3002F' },
-  { name: 'Honda', count: 10, flag: '🇯🇵', color: '#CC0000' },
-  { name: 'Mazda', count: 8, flag: '🇯🇵', color: '#101010' },
-  { name: 'Subaru', count: 5, flag: '🇯🇵', color: '#0033A0' },
-  { name: 'Isuzu', count: 12, flag: '🇯🇵', color: '#333333' },
-  { name: 'Suzuki', count: 8, flag: '🇯🇵', color: '#E20A17' },
+  { name: 'Toyota', count: 180, logo: 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/toyota.png', color: '#EB0A1E' },
+  { name: 'Mitsubishi', count: 40, logo: 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/mitsubishi.png', color: '#E60012' },
+  { name: 'Nissan', count: 35, logo: 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/nissan.png', color: '#C3002F' },
+  { name: 'Honda', count: 10, logo: 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/honda.png', color: '#CC0000' },
+  { name: 'Mazda', count: 8, logo: 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/mazda.png', color: '#101010' },
+  { name: 'Subaru', count: 5, logo: 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/subaru.png', color: '#0033A0' },
+  { name: 'Isuzu', count: 12, logo: 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/isuzu.png', color: '#333333' },
+  { name: 'Suzuki', count: 8, logo: 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/suzuki.png', color: '#E20A17' },
 ]
 
 const TICKER_ITEMS = [
@@ -766,11 +766,20 @@ const CSS = `
   .make-card:hover::after { transform: scaleX(1); }
 
   .make-icon {
-    font-size: 36px;
+    width: 132px;
+    height: 84px;
+    padding: 10px;
     margin-bottom: 16px;
-    filter: grayscale(0.2);
+    background: #fff;
+    border-radius: 12px;
     transition: transform 0.3s;
     display: inline-block;
+  }
+  .make-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
   .make-card:hover .make-icon { transform: scale(1.1) rotate(-3deg); }
 
@@ -1096,7 +1105,10 @@ function MakeCard({ make, index }: { make: typeof MAKES[0]; index: number }) {
       onMouseLeave={handleMouseLeave}
     >
       <div className="make-arrow">↗</div>
-      <div className="make-icon">{make.flag} 🚗</div>
+      <div className="make-icon">
+        {/* The brand name below labels the link; the logo is decorative. */}
+        <img src={make.logo} alt="" width={112} height={64} loading="lazy" decoding="async" />
+      </div>
       <div className="make-name">{make.name.toUpperCase()}</div>
       <div className="make-count">{make.count}+ parts available</div>
     </a>
