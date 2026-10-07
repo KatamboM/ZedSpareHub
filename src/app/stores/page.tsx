@@ -15,7 +15,7 @@ export default async function StoresPage() {
     if (part.category) current.categories.add(part.category)
     stores.set(name, current)
   })
-  const list = [...stores.entries()].sort((a, b) => a[0].localeCompare(b[0]))
+  const list = Array.from(stores.entries()).sort((a, b) => a[0].localeCompare(b[0]))
 
   return (
     <main className="container" style={{ paddingTop: 44, paddingBottom: 80 }}>
@@ -31,7 +31,7 @@ export default async function StoresPage() {
                 <p className="badge badge-green">Listed seller</p>
                 <h2 className="display" style={{ fontSize: 26, marginTop: 12 }}>{name}</h2>
                 <p className="text-xs text-steel" style={{ marginTop: 6 }}>{store.available ? `${store.available} parts currently marked in stock` : 'Listings are being confirmed with the shop'}</p>
-                <p className="text-xs text-steel" style={{ marginTop: 5 }}>{[...store.categories].slice(0, 4).join(' · ') || 'Auto parts'}</p>
+                <p className="text-xs text-steel" style={{ marginTop: 5 }}>{Array.from(store.categories).slice(0, 4).join(' · ') || 'Auto parts'}</p>
               </div>
               <a href={`/search?q=${encodeURIComponent(name)}`} className="btn btn-ghost" style={{ marginTop: 10 }}>View parts →</a>
             </article>
