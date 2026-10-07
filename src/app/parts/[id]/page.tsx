@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import OrderForm from './OrderForm'
+import AddToCartButton from '@/app/components/AddToCartButton'
 
 export default async function PartPage({ params }: { params: { id: string } }) {
   const { data: part } = await supabase
@@ -120,7 +121,8 @@ export default async function PartPage({ params }: { params: { id: string } }) {
 
         {/* Right — Order form */}
         <div style={{ position: 'sticky', top: '80px' }}>
-          <OrderForm part={part} />
+          <AddToCartButton part={part} />
+          <div style={{ marginTop: '16px' }}><OrderForm part={part} /></div>
         </div>
       </div>
 

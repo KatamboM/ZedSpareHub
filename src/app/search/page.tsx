@@ -952,7 +952,7 @@ function SearchContent() {
         // Text search
         if (debouncedQuery) {
           q = q.or(
-            `part_name.ilike.%${debouncedQuery}%,part_number.ilike.%${debouncedQuery}%,car_model.ilike.%${debouncedQuery}%,engine_code.ilike.%${debouncedQuery}%,car_make.ilike.%${debouncedQuery}%`
+            `part_name.ilike.%${debouncedQuery}%,part_number.ilike.%${debouncedQuery}%,car_model.ilike.%${debouncedQuery}%,engine_code.ilike.%${debouncedQuery}%,car_make.ilike.%${debouncedQuery}%,seller.ilike.%${debouncedQuery}%`
           )
         }
         
