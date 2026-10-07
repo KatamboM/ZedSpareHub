@@ -27,6 +27,8 @@ export default function OrderForm({ part }: { part: Part }) {
       part_name:      part.part_name,
       part_number:    part.part_number,
       seller:         part.seller,
+      seller_user_id: part.seller_user_id || null,
+      order_group_id: crypto.randomUUID(),
       sell_price_zmw: part.sell_price_zmw,
       delivery_zone:  form.delivery_zone,
       notes:          form.notes || null,
