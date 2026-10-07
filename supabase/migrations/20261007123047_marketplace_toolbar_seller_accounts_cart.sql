@@ -32,7 +32,8 @@ alter table public.parts
 
 alter table public.orders
   add column if not exists seller_user_id uuid,
-  add column if not exists order_group_id text;
+  add column if not exists order_group_id text,
+  add column if not exists quantity integer not null default 1 check (quantity > 0);
 
 do $$
 begin
