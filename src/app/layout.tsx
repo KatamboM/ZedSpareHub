@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import SiteHeader from './components/SiteHeader'
 
 export const metadata: Metadata = {
   title: 'ZedSpareHub — Find Every Part Fast',
@@ -17,15 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <nav className="nav">
-          <div className="nav-inner">
-            <a href="/" className="nav-logo">ZED<span>SPARE</span>HUB</a>
-            <span className="nav-tagline">Zambia's Auto Parts Marketplace</span>
-            <a href="/search" className="btn btn-amber" style={{ padding: '8px 18px', fontSize: '13px' }}>
-              Browse Parts
-            </a>
-          </div>
-        </nav>
+        <SiteHeader />
         {children}
         <footer className="footer">
           <div className="footer-inner">
