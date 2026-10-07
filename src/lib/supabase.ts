@@ -37,6 +37,7 @@ export type Order = {
   notes: string | null
   status: string
   order_group_id?: string | null
+  quantity?: number
   seller_user_id?: string | null
   created_at?: string
 }
