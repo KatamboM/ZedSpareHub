@@ -31,6 +31,7 @@ export default function SiteHeader() {
   const links = [
     { href: '/search', label: 'Browse Parts' },
     { href: '/stores', label: 'Stores' },
+    { href: '/request-part', label: 'Request a Part' },
     { href: '/cart', label: 'Cart', count: cartCount },
     { href: '/seller/account', label: 'Seller Account' },
   ]
