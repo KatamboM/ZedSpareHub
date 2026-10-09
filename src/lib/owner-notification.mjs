@@ -8,7 +8,7 @@ const dashboardUrl = 'https://zedsparehub.com/admin/requests'
  */
 export async function sendOwnerNotification(reference, options = {}) {
  const env = options.env || process.env
- const log = options.log || ((event) => console.warn(event))
+ const log = options.log || ((event, ...details) => console.warn(event, ...details))
  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(reference)) return 'failed'
  const host = env.ZOHO_SMTP_HOST?.trim()
  const user = env.ZOHO_SMTP_USER?.trim()
@@ -37,9 +37,13 @@ export async function sendOwnerNotification(reference, options = {}) {
   })
   const accepted = (result.accepted || []).some(value => (typeof value === 'string' ? value : value.address)?.toLowerCase() === ownerEmail)
   if (!accepted) throw new Error('Recipient not accepted')
+  log('part_request_notification_sent')
   return 'sent'
- } catch {
-  log('part_request_notification_failed')
+ } catch (error) {
+  const allowedCodes = ['EAUTH','ECONNECTION','ETIMEDOUT','ESOCKET','EDNS','ETLS','EENVELOPE','EMESSAGE']
+  const code = allowedCodes.includes(error?.code) ? error.code : 'UNKNOWN'
+  const smtpStatus = Number.isInteger(error?.responseCode) ? error.responseCode : undefined
+  log('part_request_notification_failed', {code, smtpStatus})
   return 'failed'
  } finally {
   try { transport?.close() } catch { /* Preserve saved-request success. */ }
