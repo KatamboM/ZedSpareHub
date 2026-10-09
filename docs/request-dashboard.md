@@ -2,7 +2,7 @@
 
 Open /admin/requests and sign in with a ZedSpareHub account. Seller access does not provide operator access.
 
-An owner must first create and verify a login via the existing account registration flow. After confirming the exact owner email, an administrator can approve that account through Supabase SQL Editor:
+An owner must first create and verify a login via Set up owner login on /admin/requests (no seller profile or store is created). After confirming the exact owner email, an administrator can approve that account through Supabase SQL Editor:
 
 ```sql
 insert into public.request_operators(user_id)
