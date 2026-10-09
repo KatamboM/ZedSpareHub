@@ -17,6 +17,8 @@ const pageSize = 25
 
 export default function RequestDashboard() {
  const [access, setAccess] = useState<'loading' | 'login' | 'denied' | 'allowed'>('loading')
+ const [authMode, setAuthMode] = useState<'login' | 'setup'>('login')
+ const [confirmPassword, setConfirmPassword] = useState('')
  const [email, setEmail] = useState('')
  const [password, setPassword] = useState('')
  const [rows, setRows] = useState<RequestRow[]>([])
@@ -74,13 +76,25 @@ export default function RequestDashboard() {
  async function login(event: React.FormEvent) {
   event.preventDefault()
   if (pending.current) return
+  if (authMode === 'setup' && password !== confirmPassword) { setMessage('The passwords do not match.'); return }
   pending.current = true; setBusy(true); setMessage('')
   try {
-   const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password })
-   setPassword('')
-   if (error) setMessage('Unable to sign in. Check your email and password.')
-   else await checkAccess()
-  } catch { setMessage('Unable to sign in. Please try again.') }
+   if (authMode === 'setup') {
+    const { data, error } = await supabase.auth.signUp({ email: email.trim(), password })
+    setPassword(''); setConfirmPassword('')
+    if (error) setMessage('Could not create your login. Please try again or sign in if you already have an account.')
+    else {
+     setAuthMode('login')
+     setMessage(data.session ? 'Login created. Owner dashboard access must be separately approved.' : 'Check your email to confirm your login, then return here to sign in. Owner dashboard access must be separately approved.')
+     if (data.session) await checkAccess()
+    }
+   } else {
+    const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password })
+    setPassword('')
+    if (error) setMessage('Unable to sign in. Check your email and password.')
+    else await checkAccess()
+   }
+  } catch { setMessage('Unable to complete account setup or sign-in. Please try again.') }
   finally { pending.current = false; setBusy(false) }
  }
 
@@ -115,12 +129,14 @@ export default function RequestDashboard() {
   <div className={styles.heading}><div><p className={styles.eyebrow}>PRIVATE OWNER WORKSPACE</p><h1>Part requests</h1><p>Review enquiries, source parts and keep track of follow-up.</p></div>{access === 'allowed' || access === 'denied' ? <button className="btn btn-ghost" onClick={() => void signOut()}>Sign out</button> : null}</div>
   {message ? <p role="status" className={styles.message}>{message}</p> : null}
   {access === 'loading' ? <p role="status">Checking access…</p> : access === 'login' ? <form className={styles.login} onSubmit={login}>
-   <h2>Owner sign in</h2><p>Use your approved ZedSpareHub account. Seller approval does not grant access to customer sourcing requests.</p>
+   <h2>{authMode === 'login' ? 'Owner sign in' : 'Set up your owner login'}</h2><p>{authMode === 'login' ? 'Sign in to manage your marketplace enquiries.' : 'Create your login for the private owner workspace. You do not need a seller profile or store.'}</p>
    <label htmlFor="owner-email">Email<input id="owner-email" type="email" autoComplete="username" value={email} onChange={e => setEmail(e.target.value)} required /></label>
-   <label htmlFor="owner-password">Password<input id="owner-password" type="password" autoComplete="current-password" value={password} onChange={e => setPassword(e.target.value)} required /></label>
-   <button className="btn btn-amber" disabled={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
-   <a href="/seller/account">Create a ZedSpareHub login</a><p>Your login must be separately approved for this private workspace.</p>
-  </form> : access === 'denied' ? <section className={styles.login}><h2>Owner access required</h2><p>You are signed in, but this account has not been approved to manage part requests. Contact the site owner to request access.</p></section> : <>
+   <label htmlFor="owner-password">Password<input id="owner-password" type="password" autoComplete={authMode === 'setup' ? 'new-password' : 'current-password'} minLength={authMode === 'setup' ? 8 : undefined} value={password} onChange={e => setPassword(e.target.value)} required /></label>
+   {authMode === 'setup' ? <label htmlFor="owner-confirm-password">Confirm password<input id="owner-confirm-password" type="password" autoComplete="new-password" minLength={8} value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required /></label> : null}
+   <button className="btn btn-amber" disabled={busy}>{busy ? 'Please wait…' : authMode === 'setup' ? 'Create owner login' : 'Sign in'}</button>
+   <button className="btn btn-ghost" type="button" disabled={busy} style={{ marginTop: 14 }} onClick={() => { setAuthMode(mode => mode === 'login' ? 'setup' : 'login'); setPassword(''); setConfirmPassword(''); setMessage('') }}>{authMode === 'login' ? 'Set up owner login' : 'Already registered? Sign in'}</button>
+   <p style={{ marginTop: 16 }}>Creating a login does not grant access to customer data. Owner access is approved separately.</p>
+  </form> : access === 'denied' ? <section className={styles.login}><h2>Owner access required</h2><p>You are signed in, but this account has not been approved to manage part requests. Your login is ready. Ask the account administrator to verify and approve your owner access.</p></section> : <>
    <form className={styles.toolbar} onSubmit={e => { e.preventDefault(); setPage(0); setSearch(query.trim()) }}>
     <label htmlFor="request-search">Search requests<input id="request-search" placeholder="Part, customer, make or model" maxLength={100} value={query} onChange={e => setQuery(e.target.value)} /></label>
     <label htmlFor="request-filter">Status<select id="request-filter" value={filter} onChange={e => { setFilter(e.target.value); setPage(0) }}><option>All</option>{statuses.map(item => <option key={item}>{item}</option>)}</select></label>
