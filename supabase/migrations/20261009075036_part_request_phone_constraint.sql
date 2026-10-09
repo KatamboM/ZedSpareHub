@@ -1,0 +1,1 @@
+alter table public.part_requests drop constraint part_requests_buyer_phone_check; alter table public.part_requests add constraint part_requests_buyer_phone_check check (buyer_phone ~ '^[+]260[79][0-9]{8}$');
