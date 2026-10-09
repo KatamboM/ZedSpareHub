@@ -890,9 +890,7 @@ function EmptyState({ query, onClear }: { query: string; onClear: () => void }) 
           </button>
         ))}
       </div>
-      <button className="notify-btn" onClick={() => alert('Notification feature coming soon!')}>
-        🔔 Notify me when available
-      </button>
+      <a className="notify-btn" href="/request-part">Can’t find it? Request a part →</a>
     </div>
   )
 }
@@ -1189,6 +1187,7 @@ function SearchContent() {
       )}
       
       {/* ── Results Header ── */}
+      <div style={{padding:"16px 24px",maxWidth:"1320px",margin:"0 auto",display:"flex",gap:"12px",alignItems:"center",flexWrap:"wrap"}}><span style={{color:"#c8d0da"}}>Can’t find your part?</span><a href="/request-part" className="btn btn-amber">Request a part →</a></div>
       <div className="results-header">
         <p className="results-count">
           {loading ? (
