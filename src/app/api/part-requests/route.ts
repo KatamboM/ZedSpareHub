@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { validatePartRequest } from '@/lib/part-request'
+import { sendOwnerNotification } from '@/lib/owner-notification.mjs'
+
+export const runtime = 'nodejs'
+export const maxDuration = 30
 
 export async function POST(request: Request) {
  if (Number(request.headers.get('content-length') || 0) > 12000) return NextResponse.json({error:'Request too large.'},{status:413})
@@ -23,6 +27,7 @@ export async function POST(request: Request) {
  try {
   const {error} = await db.from('part_requests').insert({id,...validation.data})
   if (error && error.code !== '23505') return NextResponse.json({error:'We could not save your request. Please try again.'},{status:503})
+  if (!error) await sendOwnerNotification(id)
   return NextResponse.json({reference:id},{status:201})
  } catch { return NextResponse.json({error:'We could not save your request. Please try again.'},{status:503}) }
 }
