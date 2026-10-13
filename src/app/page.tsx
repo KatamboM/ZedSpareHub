@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface VehicleMemory {
-  vin?: string
   make?: string
   model?: string
   year?: string
@@ -36,13 +35,6 @@ const MAKES = [
   { name: 'Suzuki', count: 8, logo: 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/suzuki.png', color: '#E20A17' },
 ]
 
-const TICKER_ITEMS = [
-  'GENUINE PARTS ONLY', 'LUSAKA DELIVERY', 'TRUSTED SELLERS',
-  '288+ PARTS IN STOCK', 'TOYOTA · NISSAN · HONDA · MITSUBISHI',
-  'PARTS AT YOUR CONVENIENCE', 'SAME-DAY DISPATCH', 'VIN LOOKUP ENABLED',
-  'CASH ON DELIVERY', 'WHATSAPP SUPPORT 24/7',
-]
-
 const SEARCH_SUGGESTIONS: SearchSuggestion[] = [
   { text: 'Brake pads for Toyota Hilux 2019', category: 'Popular', icon: '🔧' },
   { text: 'Oil filter 90915-YZZD2', category: 'OEM Number', icon: '#' },
@@ -51,24 +43,9 @@ const SEARCH_SUGGESTIONS: SearchSuggestion[] = [
 ]
 
 const HOW_IT_WORKS = [
-  { 
-    n: '01', 
-    title: 'Search',  
-    desc: 'Find your part by name, OEM number, car model, or engine code. Our VIN decoder instantly validates compatibility.',
-    icon: '🔍'
-  },
-  { 
-    n: '02', 
-    title: 'Verify',   
-    desc: 'AI-powered fitment check confirms the part matches your exact vehicle trim and submodel. No guesswork.',
-    icon: '✓'
-  },
-  { 
-    n: '03', 
-    title: 'Deliver', 
-    desc: 'Pay cash on delivery across Lusaka. Real-time tracking from seller to your door. No upfront payment needed.',
-    icon: '🚚'
-  },
+  { n: '01', title: 'Search', desc: 'Search by part name, OEM number, vehicle make, model, or engine code.', icon: '⌕' },
+  { n: '02', title: 'Check', desc: 'Review the vehicle details on each listing. If you are unsure about fit, ask us before ordering.', icon: '✓' },
+  { n: '03', title: 'Request', desc: 'Send a part request or contact us on WhatsApp to confirm availability, price, and delivery.', icon: '↗' },
 ]
 
 // ─── Custom Hooks ────────────────────────────────────────────────────────────
@@ -576,12 +553,6 @@ const CSS = `
   }
   .search-btn:active { transform: translateY(0); }
 
-  .vin-input {
-    font-family: 'JetBrains Mono', monospace !important;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
   .popular-row {
     display: flex;
     flex-wrap: wrap;
@@ -1038,6 +1009,333 @@ const CSS = `
     .trust-bar { gap: 16px; }
     .trust-item { font-size: 11px; }
   }
+  /* ── Premium automotive editorial direction ── */
+  .zsh-page {
+    --amber: #d4af70;
+    --amber-dim: rgba(212,175,112,.12);
+    --amber-glow: rgba(212,175,112,.24);
+    --surface: #101310;
+    --surface-2: #171b17;
+    --surface-3: #232923;
+    --surface-glass: rgba(23,27,23,.96);
+    --border: rgba(237,232,220,.12);
+    --border-amber: rgba(212,175,112,.34);
+    --text: #f2eee5;
+    --text-dim: rgba(242,238,229,.72);
+    --steel: #8c9189;
+    --steel-light: #b7b9b2;
+    background:
+      radial-gradient(ellipse at 70% 5%, rgba(116,103,73,.11), transparent 35%),
+      var(--surface);
+  }
+  .ticker-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    min-height: 48px;
+    padding: 8px clamp(20px, 5vw, 72px);
+    background: #1c211c;
+    border: 0;
+  }
+  .ticker-wrap::before,.ticker-wrap::after { display: none; }
+  .ticker-item {
+    padding: 0;
+    color: #cfcec5;
+    font: 500 11px/1.4 'DM Sans', sans-serif;
+    letter-spacing: .03em;
+    text-transform: none;
+    white-space: normal;
+  }
+  .ticker-dot { width: 6px; height: 6px; animation: none; }
+  .announcement-link {
+    color: var(--amber);
+    font-size: 12px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .announcement-link:hover { color: #f1d39a; }
+  .hero {
+    min-height: 0;
+    padding: clamp(52px, 7vw, 96px) 0 clamp(64px, 8vw, 112px);
+  }
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse 75% 85% at 70% 44%, black 20%, transparent 100%);
+  }
+  .hero-glow-1 {
+    top: 5%; left: auto; right: 0;
+    width: 55vw; height: 620px;
+    background: radial-gradient(ellipse, rgba(212,175,112,.12) 0%, transparent 68%);
+    animation: none;
+  }
+  .hero-content {
+    max-width: 1360px;
+    padding: 0 clamp(24px, 6vw, 88px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(380px, .85fr);
+    align-items: center;
+    gap: clamp(44px, 8vw, 120px);
+  }
+  .hero-copy { min-width: 0; }
+  .eyebrow {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    margin-bottom: 28px;
+    backdrop-filter: none;
+  }
+  .eyebrow-dot { display:none; }
+  .eyebrow-text {
+    color: var(--amber);
+    font: 600 11px/1.4 'DM Sans', sans-serif;
+    letter-spacing: .16em;
+  }
+  .hero-headline {
+    max-width: 760px;
+    font: 500 clamp(54px, 7.2vw, 96px)/.98 'DM Sans', sans-serif;
+    letter-spacing: -.065em;
+    margin: 0 0 24px;
+    text-wrap: balance;
+  }
+  .hero-headline .shimmer-word {
+    color: var(--amber);
+    -webkit-text-fill-color: var(--amber);
+    background: none;
+    animation: none;
+    font-weight: 400;
+  }
+  .hero-sub {
+    max-width: 520px;
+    color: #b8bcb3;
+    font-size: 16px;
+    line-height: 1.75;
+    margin-bottom: 30px;
+  }
+  .search-container { max-width: 630px; }
+  .search-tabs { gap: 20px; margin-bottom: 10px; }
+  .search-tab {
+    padding: 8px 0;
+    border-radius: 0;
+    color: #9a9d96;
+    font-size: 13px;
+  }
+  .search-tab.active {
+    color: var(--amber);
+    border-color: transparent;
+    border-bottom: 1px solid var(--amber);
+    background: transparent;
+  }
+  .search-input-field {
+    min-height: 58px;
+    background: #20251f;
+    border-color: rgba(242,238,229,.15);
+    border-radius: 4px;
+    padding-left: 18px;
+  }
+  .search-input-field:focus {
+    background: #242a23;
+    box-shadow: 0 0 0 3px rgba(212,175,112,.12);
+  }
+  .search-btn {
+    min-height: 58px;
+    border-radius: 4px;
+    padding: 0 24px;
+    background: var(--amber);
+    font-weight: 600;
+  }
+  .search-btn:hover { background: #e2c38d; box-shadow: 0 8px 24px rgba(212,175,112,.18); }
+  .popular-row { gap: 7px; margin-top: 16px; }
+  .popular-label {
+    font: 500 10px/1.4 'DM Sans',sans-serif;
+    letter-spacing: .08em;
+    margin-right: 3px;
+  }
+  .popular-chip {
+    border-radius: 3px;
+    padding: 6px 10px;
+    background: rgba(255,255,255,.035);
+    color: #bfc1b9;
+    font-size: 11px;
+  }
+  .popular-chip:hover { transform: none; box-shadow: none; }
+  .hero-footnote {
+    margin-top: 22px;
+    color: #969b91;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .hero-footnote span { color: var(--amber); margin-right: 7px; }
+  .hero-feature {
+    position: relative;
+    padding: 18px;
+    border: 1px solid rgba(228,218,195,.18);
+    border-radius: 7px;
+    background: linear-gradient(145deg, rgba(38,43,36,.96), rgba(22,26,22,.98));
+    box-shadow: 0 32px 90px rgba(0,0,0,.36), inset 0 1px rgba(255,255,255,.045);
+  }
+  .feature-topline,.feature-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #9ea298;
+    font: 500 10px/1.4 'DM Sans',sans-serif;
+    letter-spacing: .1em;
+  }
+  .feature-index { color: #777d73; font-variant-numeric: tabular-nums; }
+  .feature-art {
+    height: clamp(220px, 27vw, 330px);
+    margin: 14px 0 12px;
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 50% 54%, rgba(191,163,111,.2), transparent 55%),
+      linear-gradient(135deg, #272d25, #1a201a);
+  }
+  .feature-art::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(255,255,255,.045), transparent 42%, rgba(0,0,0,.12));
+  }
+  .art-orbit {
+    position: absolute;
+    width: 76%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(212,175,112,.13);
+    border-radius: 50%;
+  }
+  .art-orbit-two { width: 56%; opacity: .6; }
+  .filter-illustration { width: 94%; max-height: 100%; position: relative; z-index: 1; }
+  .feature-art-caption {
+    position: absolute;
+    z-index: 2;
+    bottom: 12px; left: 14px;
+    color: rgba(240,234,220,.65);
+    font: 10px 'JetBrains Mono',monospace;
+    letter-spacing: .1em;
+  }
+  .feature-details {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    padding: 11px 2px 14px;
+  }
+  .feature-kicker {
+    display:block;
+    color:var(--amber);
+    font:500 10px/1.4 'DM Sans',sans-serif;
+    letter-spacing:.12em;
+    margin-bottom:5px;
+  }
+  .feature-details h2 { font-size:20px; font-weight:500; letter-spacing:-.03em; }
+  .coming-badge {
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    border:1px solid rgba(212,175,112,.26);
+    border-radius:3px;
+    padding:7px 9px;
+    color:#ddc38f;
+    background:rgba(212,175,112,.07);
+    font-size:10px;
+    white-space:nowrap;
+  }
+  .coming-badge i { width:5px;height:5px;border-radius:50%;background:var(--amber); }
+  .feature-footer {
+    padding-top: 13px;
+    border-top:1px solid var(--border);
+    letter-spacing:0;
+    text-transform:none;
+    font-size:12px;
+  }
+  .feature-footer strong { color:#f2eee5;font-size:18px;font-weight:500; }
+  .feature-footer a { margin-left:auto;color:var(--amber);text-decoration:none; }
+  .feature-footer a:hover { color:#f1d39a; }
+  .stats-strip {
+    border:0;
+    background:#1b201b;
+  }
+  .stats-inner { max-width:1360px; padding:0 clamp(24px,6vw,88px); }
+  .stat-item { padding:30px 16px; }
+  .stat-number {
+    color:var(--text);
+    font:500 clamp(28px,3.2vw,40px)/1.1 'DM Sans',sans-serif;
+    letter-spacing:-.06em;
+  }
+  .stat-label {
+    color:#999e94;
+    font:500 10px/1.5 'DM Sans',sans-serif;
+    letter-spacing:.08em;
+    text-transform:none;
+  }
+  .section { max-width:1360px; padding:clamp(64px,8vw,110px) clamp(24px,6vw,88px); }
+  .section-eyebrow { color:var(--amber);font:600 10px/1.4 'DM Sans',sans-serif;letter-spacing:.14em; }
+  .section-title { font:500 clamp(34px,4.5vw,54px)/1.06 'DM Sans',sans-serif;letter-spacing:-.055em;margin-bottom:34px; }
+  .makes-grid { gap:12px; }
+  .make-card {
+    border-radius:5px;
+    background:linear-gradient(145deg,#1b201b,#151915);
+    border-color:rgba(237,232,220,.11);
+    padding:28px 24px;
+  }
+  .make-card:hover { transform:translateY(-2px); }
+  .make-icon { width:112px;height:68px;border-radius:3px;background:#f4f1e9;padding:8px; }
+  .make-name { font:500 21px 'DM Sans',sans-serif;letter-spacing:-.025em; }
+  .make-count { color:#a8aa9f;font:11px 'DM Sans',sans-serif;letter-spacing:.04em; }
+  .how-section { background:#171b17;border-color:var(--border); }
+  .how-item { padding:44px 32px; }
+  .how-number { font:400 64px/1 'DM Sans',sans-serif;letter-spacing:-.08em;color:var(--amber); }
+  .how-icon { font-size:23px;color:var(--amber); }
+  .how-title { font:500 23px 'DM Sans',sans-serif;letter-spacing:-.03em; }
+  .how-desc { color:#aaaea4;font-size:14px;line-height:1.75; }
+  .cta-section { max-width:1360px;padding:clamp(76px,9vw,120px) 24px; }
+  .cta-title { font:500 clamp(42px,6vw,72px)/1.02 'DM Sans',sans-serif;letter-spacing:-.06em; }
+  .cta-btn { border-radius:4px;animation:none;padding:16px 27px;font-size:12px; }
+  .trust-bar { background:#171b17;border-color:var(--border);gap:clamp(18px,3vw,42px); }
+  .trust-item { color:#b9bcb3;font:500 10px 'DM Sans',sans-serif;letter-spacing:.04em; }
+  .whatsapp-float { border-radius:4px;box-shadow:0 8px 24px rgba(37,211,102,.2); }
+  @media(max-width:900px) {
+    .hero-content { grid-template-columns:1fr;gap:46px;max-width:760px; }
+    .hero-feature { max-width:560px;width:100%;margin:0 auto; }
+  }
+  @media(max-width:768px) {
+    .hero { padding:54px 0 68px; }
+    .hero-content { padding:0 24px; }
+    .hero-headline { font-size:clamp(52px,13vw,80px); }
+    .search-row { flex-direction:row; }
+    .search-btn { width:auto; }
+    .popular-row { gap:6px; }
+    .stat-number { font-size:clamp(24px,7vw,34px); }
+    .stats-inner { padding:0 16px; }
+    .stat-item { padding:23px 10px; }
+    .stat-label { font-size:9px; }
+    .feature-art { height:250px; }
+    .section { padding:62px 24px; }
+    .trust-bar { padding:22px 18px; }
+    .trust-item { font-size:10px; }
+  }
+  @media(max-width:520px) {
+    .ticker-wrap { align-items:flex-start;flex-direction:column;gap:7px;padding:11px 20px; }
+    .ticker-item { font-size:10px; }
+    .hero-feature { padding:12px; }
+    .feature-art { height:220px; }
+    .stats-inner { grid-template-columns:repeat(2,1fr); }
+    .stats-inner .stat-item:nth-child(2)::after { display:none; }
+    .stats-inner .stat-item:nth-child(3)::after { display:none; }
+    .search-row { gap:8px; }
+    .search-btn { padding:0 16px; }
+    .makes-grid { grid-template-columns:repeat(2,1fr); }
+    .make-card { padding:20px 15px; }
+    .make-icon { width:100%;max-width:110px;height:56px; }
+  }
+
 `
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
@@ -1110,7 +1408,7 @@ function MakeCard({ make, index }: { make: typeof MAKES[0]; index: number }) {
         <img src={make.logo} alt="" width={112} height={64} loading="lazy" decoding="async" />
       </div>
       <div className="make-name">{make.name.toUpperCase()}</div>
-      <div className="make-count">{make.count}+ parts available</div>
+      <div className="make-count">Explore catalogue <span aria-hidden="true">↗</span></div>
     </a>
   )
 }
@@ -1118,7 +1416,7 @@ function MakeCard({ make, index }: { make: typeof MAKES[0]; index: number }) {
 // ─── Main Component ──────────────────────────────────────────────────────────
 export default function HomePage() {
   const [query, setQuery] = useState('')
-  const [searchMode, setSearchMode] = useState<'part' | 'vin'>('part')
+  const [searchMode, setSearchMode] = useState<'part' | 'vehicle'>('part')
   const [statsVisible, setStatsVisible] = useState(false)
   const [suggestionsVisible, setSuggestionsVisible] = useState(false)
   const [vehicleMemory, setVehicleMemory] = useLocalStorage<VehicleMemory>('zsh-vehicle', {})
@@ -1129,9 +1427,7 @@ export default function HomePage() {
   const router = useRouter()
 
   const count288 = useCountUp(288, 1800, statsVisible)
-  const count24  = useCountUp(24,  1400, statsVisible)
-  const count27  = useCountUp(27,  1500, statsVisible)
-  const count8   = useCountUp(8,   1200, statsVisible)
+  const count5 = useCountUp(5, 1200, statsVisible)
 
   // Intersection Observer for stats
   useEffect(() => {
@@ -1178,14 +1474,8 @@ export default function HomePage() {
     e.preventDefault()
     if (!query.trim()) return
     
-    if (searchMode === 'vin') {
-      // Save VIN to memory
-      setVehicleMemory(prev => ({ ...prev, vin: query.trim().toUpperCase() }))
-      router.push(`/search?vin=${encodeURIComponent(query.trim().toUpperCase())}`)
-    } else {
-      setVehicleMemory(prev => ({ ...prev, lastSearch: query.trim() }))
-      router.push(`/search?q=${encodeURIComponent(query.trim())}`)
-    }
+    setVehicleMemory(prev => ({ ...prev, lastSearch: query.trim() }))
+    router.push(`/search?q=${encodeURIComponent(query.trim())}`)
   }
 
   const goSearch = (term: string) => {
@@ -1200,27 +1490,20 @@ export default function HomePage() {
     <div className="zsh-page">
       <style>{CSS}</style>
 
-      {/* ── Ticker ── */}
-      <div className="ticker-wrap" aria-label="Announcements">
-        <div className="ticker-inner">
-          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-            <span key={i} className="ticker-item">
-              <span className="ticker-dot" aria-hidden="true" />
-              {item}
-            </span>
-          ))}
-        </div>
+      {/* ── Catalogue announcement ── */}
+      <div className="ticker-wrap" aria-label="Catalogue update">
+        <span className="ticker-item">
+          <span className="ticker-dot" aria-hidden="true" />
+          The catalogue is nearly here. Browse listings and request a part in the meantime.
+        </span>
+        <a className="announcement-link" href="/search">Explore catalogue <span aria-hidden="true">↗</span></a>
       </div>
 
       {/* ── Vehicle Memory Banner ── */}
-      {(vehicleMemory.vin || vehicleMemory.lastSearch) && (
+      {vehicleMemory.lastSearch && (
         <div className="vehicle-memory animate-fade-up">
-          <span>🚗</span>
-          <span>
-            {vehicleMemory.vin 
-              ? `Last VIN: ${vehicleMemory.vin}` 
-              : `Last search: "${vehicleMemory.lastSearch}"`}
-          </span>
+          <span>⌕</span>
+          <span>{`Last search: "${vehicleMemory.lastSearch}"`}
           <button 
             className="vehicle-memory-btn" 
             onClick={clearVehicleMemory}
@@ -1235,127 +1518,138 @@ export default function HomePage() {
       <section className="hero">
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-glow-1" aria-hidden="true" />
-        <div className="hero-glow-2" aria-hidden="true" />
-        <div className="hero-scan-line" aria-hidden="true" />
-
         <div className="hero-content">
-          {/* Eyebrow */}
-          <div className="eyebrow animate-fade-up delay-1">
-            <span className="eyebrow-dot" aria-hidden="true" />
-            <span className="eyebrow-text">Lusaka · Zambia · Est 2026</span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="hero-headline animate-fade-up delay-2">
-            FIND EVERY<br />
-            <span className="shimmer-word">PART</span>{' '}
-            <span className="outline-word">FAST</span>
-          </h1>
-
-          {/* Subheading */}
-          <p className="hero-sub animate-fade-up delay-3">
-            Search by part name, OEM number, VIN, car model, or engine code.
-            Genuine parts from verified Lusaka sellers — delivered to your door with COD.
-          </p>
-
-          {/* Search */}
-          <div ref={searchRef} className="search-container animate-fade-up delay-4">
-            <div className="search-tabs" role="tablist">
-              <button 
-                className={`search-tab ${searchMode === 'part' ? 'active' : ''}`}
-                onClick={() => setSearchMode('part')}
-                role="tab"
-                aria-selected={searchMode === 'part'}
-              >
-                🔍 Part Search
-              </button>
-              <button 
-                className={`search-tab ${searchMode === 'vin' ? 'active' : ''}`}
-                onClick={() => setSearchMode('vin')}
-                role="tab"
-                aria-selected={searchMode === 'vin'}
-              >
-                # VIN Lookup
-              </button>
+          <div className="hero-copy">
+            <div className="eyebrow animate-fade-up delay-1">
+              <span className="eyebrow-dot" aria-hidden="true" />
+              <span className="eyebrow-text">Lusaka · Zambia</span>
             </div>
-
-            <form className="search-row" onSubmit={handleSearch}>
-              <div className="search-box">
-                <input
-                  className={`search-input-field ${searchMode === 'vin' ? 'vin-input' : ''}`}
-                  placeholder={
-                    searchMode === 'vin' 
-                      ? 'Enter 17-character VIN...' 
-                      : 'e.g. Fuel pump, 23221-74021, Vitz 1NZ...'
-                  }
-                  value={query}
-                  onChange={e => {
-                    setQuery(e.target.value)
-                    setSuggestionsVisible(true)
-                  }}
-                  onFocus={() => setSuggestionsVisible(true)}
-                  maxLength={searchMode === 'vin' ? 17 : undefined}
-                  autoFocus
-                  aria-label={searchMode === 'vin' ? 'Vehicle Identification Number' : 'Search parts'}
-                />
-                <span className="search-icon-wrap">
-                  <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-                  </svg>
-                </span>
-                
-                <SearchSuggestions 
-                  query={query} 
-                  onSelect={goSearch}
-                  visible={suggestionsVisible && searchMode === 'part'} 
-                />
-              </div>
-              <button type="submit" className="search-btn">
-                {searchMode === 'vin' ? 'Decode VIN →' : 'Search →'}
-              </button>
-            </form>
-
-            <div className="popular-row">
-              <span className="popular-label">Popular:</span>
-              {POPULAR_PARTS.slice(0, 6).map(p => (
+            <h1 className="hero-headline animate-fade-up delay-2">
+              Find the right<br />
+              <span className="shimmer-word">part.</span>
+            </h1>
+            <p className="hero-sub animate-fade-up delay-3">
+              A considered catalogue of vehicle parts for Zambia. Search by part name, OEM number, make, model, or engine code.
+            </p>
+            <div ref={searchRef} className="search-container animate-fade-up delay-4">
+              <div className="search-tabs" role="tablist" aria-label="Search type">
                 <button
-                  key={p}
-                  type="button"
-                  className="popular-chip"
-                  onClick={() => goSearch(p)}
-                >
-                  {p}
-                </button>
-              ))}
+                  className={`search-tab ${searchMode === 'part' ? 'active' : ''}`}
+                  onClick={() => setSearchMode('part')}
+                  role="tab"
+                  aria-selected={searchMode === 'part'}
+                >Part</button>
+                <button
+                  className={`search-tab ${searchMode === 'vehicle' ? 'active' : ''}`}
+                  onClick={() => setSearchMode('vehicle')}
+                  role="tab"
+                  aria-selected={searchMode === 'vehicle'}
+                >Vehicle</button>
+              </div>
+              <form className="search-row" onSubmit={handleSearch}>
+                <div className="search-box">
+                  <input
+                    className="search-input-field"
+                    placeholder={searchMode === 'vehicle'
+                      ? 'Make, model, year, or engine'
+                      : 'Part name or OEM number'}
+                    value={query}
+                    onChange={e => {
+                      setQuery(e.target.value)
+                      setSuggestionsVisible(true)
+                    }}
+                    onFocus={() => setSuggestionsVisible(true)}
+                    aria-label={searchMode === 'vehicle' ? 'Search by vehicle' : 'Search parts'}
+                  />
+                  <span className="search-icon-wrap" aria-hidden="true">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                    </svg>
+                  </span>
+                  <SearchSuggestions query={query} onSelect={goSearch} visible={suggestionsVisible && searchMode === 'part'} />
+                </div>
+                <button type="submit" className="search-btn">Search <span aria-hidden="true">→</span></button>
+              </form>
+              <div className="popular-row">
+                <span className="popular-label">Popular</span>
+                {POPULAR_PARTS.slice(0, 4).map(p => (
+                  <button key={p} type="button" className="popular-chip" onClick={() => goSearch(p)}>{p}</button>
+                ))}
+              </div>
             </div>
+            <p className="hero-footnote"><span aria-hidden="true">✳</span> Catalogue listings are coming soon. Check availability before ordering.</p>
           </div>
+
+          <aside className="hero-feature animate-fade-scale delay-3" aria-label="Featured catalogue listing">
+            <div className="feature-topline">
+              <span>CATALOGUE PREVIEW</span>
+              <span className="feature-index">01 / 288</span>
+            </div>
+            <div className="feature-art">
+              <div className="art-orbit art-orbit-one" aria-hidden="true" />
+              <div className="art-orbit art-orbit-two" aria-hidden="true" />
+              <svg className="filter-illustration" viewBox="0 0 440 330" role="img" aria-label="Illustration of an automotive air filter">
+                <defs>
+                  <linearGradient id="filterBody" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stopColor="#e8dfce" />
+                    <stop offset=".52" stopColor="#a99b84" />
+                    <stop offset="1" stopColor="#665f54" />
+                  </linearGradient>
+                  <linearGradient id="filterEdge" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#262723" />
+                    <stop offset="1" stopColor="#0e100f" />
+                  </linearGradient>
+                  <filter id="filterShadow" x="-30%" y="-30%" width="160%" height="180%">
+                    <feGaussianBlur stdDeviation="12" />
+                  </filter>
+                </defs>
+                <ellipse cx="222" cy="270" rx="132" ry="22" fill="#000" opacity=".48" filter="url(#filterShadow)" />
+                <g transform="translate(220 152) rotate(-14)">
+                  <path d="M-115-60 Q0-103 115-60 L104 58 Q0 100-104 58Z" fill="url(#filterBody)" stroke="#f0e8d9" strokeOpacity=".54" strokeWidth="2" />
+                  {Array.from({ length: 17 }, (_, i) => <path key={i} d={`M${-98 + i * 12} -68 L${-88 + i * 11} 71`} stroke="#393a35" strokeOpacity=".58" strokeWidth="3" />)}
+                  <path d="M-115-60 Q0-103 115-60 L115-39 Q0 3-115-39Z" fill="url(#filterEdge)" />
+                  <path d="M-104 42 Q0 81 104 42 L104 58 Q0 100-104 58Z" fill="#272824" />
+                  <path d="M-115-60 Q0-103 115-60" fill="none" stroke="#f4ead6" strokeOpacity=".7" strokeWidth="2" />
+                </g>
+                <circle cx="342" cy="63" r="3" fill="#d4af70" />
+                <circle cx="85" cy="245" r="2" fill="#d4af70" opacity=".6" />
+              </svg>
+              <span className="feature-art-caption">PART No. 17220-RB6-200</span>
+            </div>
+            <div className="feature-details">
+              <div>
+                <span className="feature-kicker">HONDA · FIT</span>
+                <h2>Air filter</h2>
+              </div>
+              <span className="coming-badge"><i /> Coming soon</span>
+            </div>
+            <div className="feature-footer">
+              <span>Listed price</span>
+              <strong>K50</strong>
+              <a href="/search?q=17220-RB6-200" aria-label="View air filter listing">View listing <span aria-hidden="true">↗</span></a>
+            </div>
+          </aside>
         </div>
       </section>
 
-      {/* ── Stats ── */}
+      {/* ── Catalogue facts ── */}
       <div className="stats-strip" ref={statsRef}>
         <div className="stats-inner">
           <div className="stat-item">
-            <div className="stat-number" aria-live="polite">
-              {statsVisible ? count288 : 0}+
-            </div>
-            <div className="stat-label">Parts in Stock</div>
+            <div className="stat-number">{statsVisible ? count288 : 288}</div>
+            <div className="stat-label">Catalogue listings · coming soon</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number" aria-live="polite">
-              {statsVisible ? count24 : 0}
-            </div>
-            <div className="stat-label">Categories</div>
+            <div className="stat-number">{statsVisible ? count5 : 5}</div>
+            <div className="stat-label">Parts categories</div>
           </div>
           <div className="stat-item">
             <div className="stat-number">COD</div>
-            <div className="stat-label">Cash on Delivery</div>
+            <div className="stat-label">Cash on delivery</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number" aria-live="polite">
-              {statsVisible ? count27 : 0}
-            </div>
-            <div className="stat-label">Verified Sellers</div>
+            <div className="stat-number">LUSAKA</div>
+            <div className="stat-label">Local catalogue</div>
           </div>
         </div>
       </div>
@@ -1404,8 +1698,7 @@ export default function HomePage() {
         <div className="cta-glow" aria-hidden="true" />
         <h2 className="cta-title">READY TO FIND<br />YOUR PART?</h2>
         <p className="cta-sub">
-          288+ genuine parts in stock. AI fitment verification. 
-          Stock updated weekly across Lusaka.
+          Explore the upcoming catalogue or tell us what part you need. We’ll help you check the listing before you order.
         </p>
         <a href="/search" className="cta-btn">
           Browse All Parts
@@ -1416,11 +1709,11 @@ export default function HomePage() {
       {/* ── Trust bar ── */}
       <div className="trust-bar">
         {[
-          { icon: '✅', text: 'Verified Sellers Only' },
-          { icon: '🚚', text: 'Lusaka Wide Delivery' },
-          { icon: '💵', text: 'Cash on Delivery' },
-          { icon: '🛡', text: 'Fitment Guarantee' },
-          { icon: '📞', text: 'WhatsApp Support' },
+          { icon: '↗', text: 'Browse the catalogue' },
+          { icon: '⌕', text: 'Search by vehicle' },
+          { icon: '💵', text: 'Cash on delivery' },
+          { icon: '✳', text: 'Request a part' },
+          { icon: '◉', text: 'Contact on WhatsApp' },
         ].map(t => (
           <div key={t.text} className="trust-item">
             <span className="trust-icon" aria-hidden="true">{t.icon}</span>
