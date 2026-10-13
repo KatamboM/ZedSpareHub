@@ -1503,7 +1503,7 @@ export default function HomePage() {
       {vehicleMemory.lastSearch && (
         <div className="vehicle-memory animate-fade-up">
           <span>⌕</span>
-          <span>{`Last search: "${vehicleMemory.lastSearch}"`}
+          <span>{`Last search: "${vehicleMemory.lastSearch}"`}</span>
           <button 
             className="vehicle-memory-btn" 
             onClick={clearVehicleMemory}
