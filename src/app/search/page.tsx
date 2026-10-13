@@ -807,48 +807,44 @@ const CSS = `
     .part-card { padding:21px; }
   }
 
-  /* Clean parts catalogue */
-  .search-page { --amber:#efb326;--amber-dim:rgba(239,179,38,.12);--amber-glow:rgba(239,179,38,.22);--surface:#f4f6f8;--surface-2:#fff;--surface-3:#edf1f4;--surface-glass:rgba(255,255,255,.96);--border:rgba(21,45,67,.14);--border-amber:rgba(239,179,38,.38);--text:#172b40;--text-dim:#5c6c7b;--steel:#708090;--steel-light:#526476;--success:#198754;--warning:#bd8310;min-height:100vh;background:#f4f6f8;color:#172b40;font-family:Arial,Helvetica,sans-serif }
-  .search-header {position:relative;padding:24px clamp(16px,4vw,48px);background:#17334d;border-bottom:0}
-  .search-form {margin:0 auto;max-width:1120px}
-  .search-input {min-height:52px;border:1px solid #d4dde5;border-radius:5px;background:white;color:#172b40;font-family:Arial,sans-serif}
-  .search-input::placeholder {color:#81909d}
-  .search-input:focus {border-color:#5590b3;background:white;box-shadow:0 0 0 3px rgba(85,144,179,.16)}
-  .search-icon {color:#708496}
-  .search-page .search-btn {border-radius:5px;background:#f4b323;color:#172b40;font-family:Arial,sans-serif;font-weight:700}
-  .search-page .search-btn:hover {background:#ffca4d;transform:translateY(-1px);box-shadow:0 5px 16px rgba(180,124,10,.18)}
-  .search-history {max-width:1120px;margin:12px auto 0}
-  .history-label,.filter-label {font-family:Arial,sans-serif;letter-spacing:.04em;color:#667786}
-  .history-chip {border-color:#d4dde5;border-radius:4px;background:white;color:#40566a;font-family:Arial,sans-serif}
-  .filters-bar {max-width:none;padding:16px clamp(16px,4vw,48px);justify-content:center;background:white;border-bottom:1px solid #dfe4e9}
-  .filter-group {min-width:150px}
-  .filter-select,.price-input,.sort-select {border-color:#d2dbe3;border-radius:5px;background-color:white;color:#24394d;font-family:Arial,sans-serif}
-  .filter-select:focus,.price-input:focus,.sort-select:focus {border-color:#5590b3;box-shadow:0 0 0 3px rgba(85,144,179,.12)}
-  .active-filters,.results-header,.results-container {max-width:1200px}
-  .filter-chip {border-radius:4px;color:#825f0d;background:#fff8e6}
-  .results-header {padding:22px clamp(16px,4vw,48px)}
-  .results-count {color:#687887}.results-count strong {color:#172b40}
-  .sort-select {padding:10px 32px 10px 12px}
-  .view-toggle {border-color:#d8e0e7;border-radius:5px;background:white}
-  .view-btn {color:#607384}.view-btn.active {border-radius:3px;background:#e9eff4;color:#1a5b85}
-  .results-container {padding:0 clamp(16px,4vw,48px) 72px}
-  .part-card {border:1px solid #dce3e9;border-radius:6px;background:white;color:#172b40;box-shadow:0 3px 10px rgba(20,43,63,.045)}
-  .part-card::before {display:none}
-  .part-card:hover {border-color:#b3c2ce;box-shadow:0 9px 24px rgba(20,43,63,.1);transform:translateY(-2px)}
-  .card-brand {color:#223b53}.card-engine,.card-seller {color:#657585}
-  .part-card h3,.part-card h2,.part-title {color:#172b40}
-  .empty-state {color:#1c334a}
-  .empty-title {color:#172b40}.empty-text {color:#647585}
-  .filter-drawer {background:#fff;color:#172b40}
-  .filter-drawer .filter-select,.filter-drawer .price-input {background-color:#fff}
-  .filter-drawer-overlay {background:rgba(13,31,48,.48)}
-  @media(max-width:760px) {
-    .search-header {padding:16px}
-    .filters-bar {padding:12px 16px}
-    .results-header {padding:18px 16px}
-    .results-container {padding:0 16px 56px}
+  /* Return the parts catalogue to the house dark palette */
+  .search-page {--amber:#f18a2e;--amber-dim:rgba(241,138,46,.12);--amber-glow:rgba(241,138,46,.24);--surface:#0c121b;--surface-2:#121b26;--surface-3:#1a2634;--surface-glass:rgba(17,26,37,.97);--border:rgba(213,224,236,.1);--border-amber:rgba(241,138,46,.32);--text:#edf1f5;--text-dim:#abb7c4;--steel:#8794a2;--steel-light:#b3bec9;--success:#58b785;--warning:#e7a84b;background:radial-gradient(ellipse at 76% 0%,rgba(35,68,101,.18),transparent 38%),#0a1018;color:#edf1f5}
+  .search-header {background:#101923;border-color:var(--border);padding-top:24px;padding-bottom:24px}
+  .search-form {margin-bottom:0}
+  .search-input,.filter-select,.price-input,.sort-select {border-radius:4px;background-color:#0b121a;border-color:#304050;color:#edf1f5}
+  .search-input::placeholder {color:#7f8e9c}
+  .search-input:focus,.filter-select:focus,.price-input:focus,.sort-select:focus {border-color:var(--amber);background-color:#0c141e;box-shadow:0 0 0 3px rgba(241,138,46,.12)}
+  .search-btn {border-radius:4px;background:var(--amber);color:#20150d}
+  .search-btn:hover {background:#ff9e42;box-shadow:0 7px 20px rgba(241,138,46,.18)}
+  .filters-bar {max-width:1280px;padding-top:18px;padding-bottom:18px;border-color:var(--border);background:#0e151f}
+  .filter-select,.price-input {min-height:42px}
+  .results-header {padding-top:24px;padding-bottom:20px}
+  .results-count {color:#a8b4bf}.results-count strong {color:#eff2f5}
+  .results-container {padding-bottom:90px}
+  .grid-3 {gap:16px}
+  .part-card {background:linear-gradient(145deg,#151f2b,#111923);border:1px solid rgba(213,224,236,.1);border-radius:5px;padding:23px;min-height:100%}
+  .part-card::before {background:linear-gradient(135deg,rgba(241,138,46,.07),transparent 62%)}
+  .part-card:hover {border-color:rgba(241,138,46,.38);box-shadow:0 17px 38px rgba(0,0,0,.28);transform:translateY(-2px)}
+  .card-brand {color:#edf1f5}.card-category {color:#bec8d1;background:rgba(255,255,255,.06)}
+  .card-title {color:#edf1f5;font-size:18px;font-weight:600;letter-spacing:-.015em}
+  .card-part-number {color:#f19a4b}
+  .card-meta-item,.card-engine,.card-seller {color:#a5b1bc}
+  .card-footer {border-color:var(--border)}
+  .card-price {color:#f1a04a;font:500 25px 'DM Sans',sans-serif;letter-spacing:-.04em}
+  .badge-steel {color:#e5bd8d;background:rgba(241,138,46,.1);border:1px solid rgba(241,138,46,.2)}
+  .badge-green {background:rgba(63,125,84,.16);color:#a6d4b2}
+  .badge-amber {background:rgba(241,138,46,.13);color:#f1b16f}
+  .badge-red {background:rgba(160,75,67,.15);color:#e2aaa3}
+  .empty-title {font:500 36px 'DM Sans',sans-serif;letter-spacing:-.05em}
+  .history-chip,.filter-chip {border-radius:3px}
+  .view-toggle {border-radius:4px}.view-btn.active {color:var(--amber)}
+  .mobile-filter-btn {border-radius:4px}
+  .filter-drawer {background:#101923;color:#edf1f5}
+  @media(max-width:768px) {
+    .search-header {padding:17px 20px}.filters-bar {padding:14px 20px}
+    .results-header {padding:17px 20px}.results-container {padding:0 20px 70px}
+    .part-card {padding:20px}
   }
-
 `
 
 // ─── Status Badge Component ──────────────────────────────────────────────────

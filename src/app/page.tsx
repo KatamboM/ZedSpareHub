@@ -1017,134 +1017,127 @@ const CSS = `
     .trust-bar { gap: 16px; }
     .trust-item { font-size: 11px; }
   }
-  /* Marketplace storefront: clear, practical and mobile-first */
+  /* ZedSpareHub dark identity */
   .zsh-page {
-    --amber:#f4b323; --amber-dim:rgba(244,179,35,.14); --amber-glow:rgba(244,179,35,.25);
-    --surface:#f5f6f8; --surface-2:#fff; --surface-3:#eef1f4; --surface-glass:rgba(255,255,255,.97);
-    --border:rgba(18,36,57,.12); --border-amber:rgba(244,179,35,.4); --text:#16283c; --text-dim:#536273;
-    --steel:#6e7d8c; --steel-light:#526272;
-    background:#f5f6f8;color:#16283c;font-family:Arial,Helvetica,sans-serif;
+    --amber:#f18a2e;--amber-dim:rgba(241,138,46,.12);--amber-glow:rgba(241,138,46,.25);
+    --surface:#0c121b;--surface-2:#121b26;--surface-3:#1a2634;--surface-glass:rgba(17,26,37,.97);
+    --border:rgba(213,224,236,.1);--border-amber:rgba(241,138,46,.32);--text:#edf1f5;--text-dim:#abb7c4;
+    --steel:#8794a2;--steel-light:#b3bec9;--success:#58b785;--warning:#e7a84b;
+    background:#0a1018;color:#edf1f5;font-family:'DM Sans',system-ui,sans-serif;
   }
-  .zsh-page * { box-sizing:border-box; }
-  .ticker-wrap { min-height:40px;padding:8px clamp(16px,5vw,72px);display:flex;justify-content:center;gap:10px;background:#f5b526;border:0;color:#172b40; }
-  .ticker-wrap::before,.ticker-wrap::after {display:none}
-  .ticker-item {padding:0;color:#172b40;font:600 12px/1.4 Arial,sans-serif;letter-spacing:0;text-transform:none}
-  .ticker-dot {width:6px;height:6px;animation:none}
-  .announcement-link {color:#172b40;font-weight:700}
-  .announcement-link:hover {color:#314a64}
-  .hero {position:relative;min-height:0;padding:76px 0 104px;overflow:hidden;background:linear-gradient(112deg,#0d2238 0%,#173a59 58%,#214964 100%);color:white}
-  .hero-grid {opacity:.3;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px)}
-  .hero-glow-1 {top:-160px;left:auto;right:3%;width:54vw;height:560px;background:radial-gradient(ellipse,rgba(245,181,38,.16),transparent 68%);animation:none}
-  .hero-content {position:relative;z-index:1;max-width:1200px;padding:0 clamp(20px,6vw,78px);display:block}
-  .hero-copy {max-width:820px}
-  .eyebrow {padding:0;border:0;background:transparent;margin:0 0 16px;backdrop-filter:none}
-  .eyebrow-dot {display:none}
-  .eyebrow-text,.section-eyebrow {color:#e4a919;font:700 11px/1.4 Arial,sans-serif;letter-spacing:.12em}
-  .hero-headline {max-width:760px;margin:0 0 16px;font:800 clamp(38px,5.3vw,66px)/1.05 Arial,sans-serif;letter-spacing:-.04em}
-  .hero-headline .shimmer-word {color:#f6bd37;-webkit-text-fill-color:#f6bd37;background:none;animation:none}
-  .hero-sub {max-width:610px;margin:0 0 24px;color:#d5e0eb;font-size:17px;line-height:1.65}
-  .hero-assurances {display:flex;gap:22px;flex-wrap:wrap;color:#e0e7ee;font-size:12px}
-  .hero-assurances span {display:flex;align-items:center;gap:5px}
-  .hero-assurances span::before {content:'✓';color:#fac440;font-weight:800}
-  .hero-assurances strong {color:white;font-size:13px}
-  .floating-parts {position:absolute;inset:0;max-width:1240px;margin:auto;pointer-events:none;color:rgba(255,255,255,.22)}
-  .floating-part {position:absolute;width:68px;height:68px;animation:part-drift 8s ease-in-out infinite}
-  .floating-part svg {width:100%;height:100%}
-  .floating-wheel {right:10%;top:15%;animation-delay:-1s}
-  .floating-gear {right:23%;top:44%;width:46px;height:46px;animation-delay:-4s}
-  .floating-disc {right:6%;bottom:20%;width:54px;height:54px;animation-delay:-6s}
-  @keyframes part-drift {0%,100%{transform:translate3d(0,0,0) rotate(-5deg)}50%{transform:translate3d(0,-13px,0) rotate(5deg)}}
-  .vehicle-search-panel {position:relative;z-index:3;max-width:1060px;margin:-58px auto 0;padding:22px clamp(16px,3vw,32px);border:1px solid #d9dfe6;border-radius:8px;background:white;color:#182b3e;box-shadow:0 16px 42px rgba(14,34,54,.15)}
-  .search-panel-heading {display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
-  .search-tabs {display:flex;gap:8px;margin:0}
-  .search-tab {padding:10px 15px;border:1px solid transparent;border-radius:5px;background:transparent;color:#586879;font-size:14px;font-weight:700}
-  .search-tab.active {color:#183651;border-color:#d9e0e7;background:#f2f5f8}
-  .search-panel-request,.section-link {color:#1d5d88;font-size:13px;font-weight:700;text-decoration:none}
-  .market-search-row {display:flex;gap:10px}
-  .search-box,.vehicle-fields {position:relative;display:flex;flex:1;gap:10px}
-  .search-input-field {width:100%;min-height:54px;padding:0 16px;border:1px solid #cbd4de;border-radius:5px;background:white;color:#172c40;font-size:15px}
-  .search-input-field::placeholder {color:#7b8997}
-  .search-input-field:focus {outline:0;border-color:#2474a6;box-shadow:0 0 0 3px rgba(36,116,166,.13)}
-  .search-icon-wrap {position:absolute;top:18px;right:16px;color:#64798b}
-  .search-btn {min-height:54px;padding:0 26px;border:0;border-radius:5px;background:#f5b526;color:#182b3d;font-size:14px;font-weight:800;white-space:nowrap}
-  .search-btn:hover {background:#ffc947;box-shadow:0 5px 16px rgba(180,124,10,.18)}
-  .search-suggestions {position:absolute;z-index:8;top:calc(100% + 4px);left:0;right:0;border:1px solid #d6dee6;border-radius:5px;background:white;box-shadow:0 12px 24px rgba(14,34,54,.12);color:#182b3e}
-  .suggestion-item {padding:11px 14px}
-  .suggestion-item:hover {background:#f3f6f8}
-  .search-panel-bottom {display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:13px}
-  .popular-label {margin-right:3px;color:#526476;font-size:12px;font-weight:700}
-  .popular-chip {padding:6px 10px;border:1px solid #dbe1e7;border-radius:4px;background:white;color:#31495e;font-size:12px}
-  .popular-chip:hover {transform:translateY(-1px);border-color:#91a9bc;box-shadow:none}
-  .search-note {margin-left:auto;color:#7a8793;font-size:11px}
-  .section {max-width:1200px;padding:68px clamp(20px,5vw,64px)}
-  .category-section {padding-top:58px}
-  .section-heading-row {display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}
-  .section-title {margin:7px 0 8px;color:#172b40;font:750 clamp(27px,3vw,36px)/1.15 Arial,sans-serif;letter-spacing:-.03em}
-  .section-intro {margin:0;color:#657484;font-size:14px}
-  .section-link {padding-bottom:6px}
-  .category-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
-  .category-card {position:relative;display:flex;min-height:145px;flex-direction:column;justify-content:space-between;padding:18px;border:1px solid #dfe4e9;border-radius:6px;background:white;color:#19324a;text-decoration:none;box-shadow:0 2px 6px rgba(19,39,58,.03);transition:transform .18s,border-color .18s,box-shadow .18s}
-  .category-card:hover {transform:translateY(-3px);border-color:#aabccc;box-shadow:0 9px 20px rgba(19,39,58,.08)}
-  .category-icon {display:grid;width:46px;height:46px;place-items:center;border-radius:6px;background:#eff4f7;color:#1e628f;font-size:25px}
-  .category-title {font-size:15px;font-weight:700}
-  .category-arrow {position:absolute;right:17px;bottom:18px;color:#718394}
-  .section:not(.category-section) {padding-top:54px;padding-bottom:66px}
-  .makes-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-  .make-card {border:1px solid #dfe4e9;border-radius:6px;background:white;color:#1a2d40;padding:18px 20px;box-shadow:0 2px 6px rgba(19,39,58,.03)}
-  .make-card:hover {transform:translateY(-2px);border-color:#aabccc;box-shadow:0 8px 18px rgba(19,39,58,.08)}
-  .make-icon {width:104px;height:60px;border-radius:4px;background:#f8f9fa;padding:7px}
-  .make-name {color:#1b3045;font:700 16px Arial,sans-serif}
-  .make-count {color:#647484;font-size:12px}
-  .how-section {border:0;border-top:1px solid #e0e5e9;border-bottom:1px solid #e0e5e9;background:#edf1f4;color:#1a2d40}
-  .how-item {padding:32px 24px}
-  .how-number {color:#dba21f;font:700 42px/1 Arial,sans-serif}
-  .how-icon {color:#1e628f}
-  .how-title {color:#1a2d40;font:700 18px Arial,sans-serif}
-  .how-desc {color:#5c6d7c;font-size:14px;line-height:1.65}
-  .cta-section {position:relative;max-width:none;padding:52px 24px;background:#17334d;color:white;text-align:center}
-  .cta-title {color:white;font:750 clamp(32px,4vw,48px)/1.08 Arial,sans-serif}
-  .cta-sub {max-width:640px;margin:15px auto 22px;color:#d2dce5;line-height:1.6}
-  .cta-btn {border-radius:4px;background:#f5b526;color:#182b3d;animation:none;padding:14px 22px;font-size:13px;font-weight:800}
-  .trust-bar {display:flex;justify-content:center;gap:clamp(16px,3vw,38px);border:0;border-top:1px solid #dce2e7;background:white;color:#516171;padding:22px}
-  .trust-item {color:#526475;font:600 11px Arial,sans-serif}
-  .whatsapp-float {border-radius:50%;box-shadow:0 8px 24px rgba(37,211,102,.2)}
-  .vehicle-memory {background:#edf3f7;color:#284157}
+  .zsh-page .hero {position:relative;min-height:0;padding:clamp(56px,7vw,86px) 0 46px;overflow:hidden;background:radial-gradient(ellipse at 72% 24%,rgba(35,68,101,.35),transparent 36%),linear-gradient(115deg,#101a26 0%,#0a1018 68%,#111924 100%);color:#f1f4f6}
+  .zsh-page .hero-grid {opacity:.48;background-image:linear-gradient(rgba(239,244,248,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(239,244,248,.025) 1px,transparent 1px);mask-image:radial-gradient(ellipse 70% 80% at 65% 45%,black 20%,transparent 100%)}
+  .zsh-page .hero-glow-1 {top:-95px;left:auto;right:4%;width:52vw;height:490px;background:radial-gradient(ellipse,rgba(241,138,46,.13),transparent 68%);animation:none}
+  .zsh-page .hero-content {position:relative;z-index:1;max-width:1260px;padding:0 clamp(22px,5vw,68px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);align-items:center;gap:clamp(34px,6vw,76px)}
+  .zsh-page .hero-copy {min-width:0}
+  .zsh-page .eyebrow {margin:0 0 20px;padding:0;border:0;background:none;color:#f1a34d;font:700 10px/1.4 'DM Sans',sans-serif;letter-spacing:.16em}
+  .zsh-page .eyebrow span {padding:0 5px;color:#707e8e}
+  .zsh-page .hero-headline {max-width:690px;margin:0 0 20px;color:#f0f3f6;font:600 clamp(48px,6.3vw,78px)/.99 'DM Sans',sans-serif;letter-spacing:-.058em;text-wrap:balance}
+  .zsh-page .hero-headline .shimmer-word {color:#f18a2e;-webkit-text-fill-color:#f18a2e;background:none;animation:none;font-weight:500}
+  .zsh-page .hero-sub {max-width:530px;margin:0 0 27px;color:#aebac6;font-size:15px;line-height:1.75}
+  .zsh-page .hero-assurances {display:flex;gap:12px 20px;flex-wrap:wrap;color:#aab6c2;font-size:11px}
+  .zsh-page .hero-assurances span {display:inline-flex;align-items:center;gap:6px}
+  .zsh-page .hero-assurances span::before {content:'•';color:#f18a2e}
+  .zsh-page .hero-assurances strong {color:#eff2f5;font-weight:600}
+  .zsh-page .brand-spotlight {position:relative;max-width:390px;width:100%;justify-self:end;padding:18px;border:1px solid rgba(237,242,247,.1);border-radius:7px;background:linear-gradient(145deg,rgba(19,31,45,.96),rgba(13,21,31,.98));box-shadow:0 24px 70px rgba(0,0,0,.28)}
+  .zsh-page .brand-sheet-crop {width:100%;aspect-ratio:768/359;border-radius:4px;background-image:url('/brand/zedsparehub-lockup.png');background-size:200% auto;background-position:left bottom;background-repeat:no-repeat;background-color:#203754}
+  .zsh-page .brand-spotlight-copy {padding:17px 3px 5px}
+  .zsh-page .spotlight-kicker {color:#f0a04b;font:600 9px/1.4 'DM Sans',sans-serif;letter-spacing:.12em}
+  .zsh-page .brand-spotlight-copy h2 {margin:8px 0;color:#edf1f5;font-size:19px;font-weight:600;line-height:1.3;letter-spacing:-.03em}
+  .zsh-page .brand-spotlight-copy p {margin:0;color:#98a7b5;font-size:12px;line-height:1.65}
+  .zsh-page .brand-spotlight-copy a {display:inline-flex;gap:8px;margin-top:13px;color:#f3a14d;font-size:11px;font-weight:600;text-decoration:none}
+  .zsh-page .brand-spotlight-copy a:hover {color:#ffc176}
+  .zsh-page .brand-coordinate {position:absolute;right:18px;top:18px;padding:5px 7px;border:1px solid rgba(255,255,255,.18);border-radius:3px;background:rgba(8,14,22,.75);color:#e2e8ed;font:9px 'JetBrains Mono',monospace;letter-spacing:.04em}
+  .zsh-page .floating-parts {color:rgba(241,138,46,.15);pointer-events:none}
+  .zsh-page .floating-part {opacity:.7}
+  .zsh-page .floating-wheel {right:7%;top:10%}.zsh-page .floating-gear {right:33%;top:17%}.zsh-page .floating-disc {right:4%;bottom:9%}
+  .zsh-page .vehicle-search-panel {position:relative;z-index:3;max-width:1124px;margin:36px auto 0;padding:22px clamp(17px,3vw,30px);border:1px solid rgba(213,224,236,.12);border-top:2px solid #e8832e;border-radius:6px;background:linear-gradient(130deg,#121c28,#0f1721);color:#e9edf1;box-shadow:0 17px 44px rgba(0,0,0,.22)}
+  .zsh-page .search-panel-heading {display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
+  .zsh-page .search-tabs {display:flex;gap:6px;margin:0}
+  .zsh-page .search-tab {padding:9px 13px;border:1px solid transparent;border-radius:4px;background:transparent;color:#94a2af;font-size:12px;font-weight:600;cursor:pointer}
+  .zsh-page .search-tab.active {border-color:rgba(241,138,46,.28);background:rgba(241,138,46,.1);color:#f5a355}
+  .zsh-page .search-panel-request {color:#a5b3c0;font-size:11px;text-decoration:none}.zsh-page .search-panel-request:hover {color:#f1a04c}
+  .zsh-page .market-search-row {display:flex;gap:9px}
+  .zsh-page .search-box,.zsh-page .vehicle-fields {position:relative;display:flex;flex:1;gap:9px}
+  .zsh-page .search-input-field {width:100%;min-height:50px;padding:0 16px;border:1px solid #344352;border-radius:4px;background:#0b121a;color:#ecf0f4;font-size:14px}
+  .zsh-page .search-input-field::placeholder {color:#778695}
+  .zsh-page .search-input-field:focus {outline:0;border-color:#df8738;box-shadow:0 0 0 3px rgba(223,135,56,.12)}
+  .zsh-page .search-icon-wrap {position:absolute;top:16px;right:15px;color:#aab5bf}
+  .zsh-page .search-btn {min-height:50px;padding:0 21px;border:0;border-radius:4px;background:#f18a2e;color:#20160e;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer}
+  .zsh-page .search-btn:hover {background:#ff9e42;box-shadow:0 6px 19px rgba(241,138,46,.16)}
+  .zsh-page .search-suggestions {position:absolute;z-index:8;top:calc(100% + 4px);left:0;right:0;border:1px solid #334456;border-radius:4px;background:#111a25;color:#e7edf2;box-shadow:0 14px 28px rgba(0,0,0,.35)}
+  .zsh-page .suggestion-item {padding:11px 13px}.zsh-page .suggestion-item:hover {background:#1a2837}
+  .zsh-page .search-panel-bottom {display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:13px}
+  .zsh-page .popular-label {margin-right:3px;color:#8f9eac;font-size:10px;font-weight:600}
+  .zsh-page .popular-chip {padding:5px 9px;border:1px solid #344353;border-radius:3px;background:#151f2b;color:#c0c9d2;font-size:10px;cursor:pointer}
+  .zsh-page .popular-chip:hover {border-color:#d78132;color:#f2a153}
+  .zsh-page .search-note {margin-left:auto;color:#7e8c99;font-size:10px}
+  .zsh-page .garage-strip {max-width:1124px;margin:14px auto 0;padding:12px 16px;display:flex;align-items:center;gap:12px;border:1px solid rgba(241,138,46,.2);border-radius:5px;background:#111a25;color:#dce4eb}
+  .zsh-page .garage-mark {display:grid;width:34px;height:34px;place-items:center;border-radius:4px;background:rgba(241,138,46,.11);color:#f3a04a;font-size:22px}
+  .zsh-page .garage-copy {display:flex;min-width:0;flex-direction:column;gap:2px}
+  .zsh-page .garage-copy span {color:#f1a14e;font:600 8px 'DM Sans',sans-serif;letter-spacing:.12em}
+  .zsh-page .garage-copy strong {overflow:hidden;color:#eff2f5;font-size:12px;text-overflow:ellipsis;white-space:nowrap}
+  .zsh-page .garage-copy small {color:#81909d;font-size:9px}
+  .zsh-page .garage-search {margin-left:auto;border:0;background:transparent;color:#f4a355;font-size:11px;font-weight:600;cursor:pointer}
+  .zsh-page .garage-clear {border:0;background:transparent;color:#83909c;font-size:10px;cursor:pointer}
+  .zsh-page .section {max-width:1260px;padding:62px clamp(22px,5vw,68px)}
+  .zsh-page .section-heading-row {display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:21px}
+  .zsh-page .section-eyebrow {color:#ef9b49;font:600 9px/1.4 'DM Sans',sans-serif;letter-spacing:.13em}
+  .zsh-page .section-title {margin:8px 0;color:#e8edf1;font:500 clamp(28px,3vw,38px)/1.15 'DM Sans',sans-serif;letter-spacing:-.04em}
+  .zsh-page .section-intro {margin:0;color:#96a4b1;font-size:12px;line-height:1.6}
+  .zsh-page .section-link {color:#f0a151;font-size:11px;font-weight:600;text-decoration:none}.zsh-page .section-link:hover {color:#ffc176}
+  .zsh-page .category-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+  .zsh-page .category-card {position:relative;display:flex;min-height:126px;flex-direction:column;justify-content:space-between;padding:15px;border:1px solid rgba(215,227,239,.1);border-radius:5px;background:linear-gradient(145deg,#131e2a,#101720);color:#e6ebef;text-decoration:none;transition:transform .18s,border-color .18s,background .18s}
+  .zsh-page .category-card:hover {transform:translateY(-2px);border-color:rgba(241,138,46,.4);background:#172332}
+  .zsh-page .category-icon {display:grid;width:39px;height:39px;place-items:center;border-radius:5px;background:rgba(241,138,46,.11);color:#f1a04b;font-size:22px}
+  .zsh-page .category-title {font-size:12px;font-weight:600}.zsh-page .category-arrow {position:absolute;right:14px;bottom:14px;color:#758596;font-size:12px}
+  .zsh-page .makes-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .zsh-page .make-card {border:1px solid rgba(215,227,239,.1);border-radius:5px;background:#121b26;color:#e4eaf0;padding:17px 18px}
+  .zsh-page .make-card:hover {transform:translateY(-2px);border-color:rgba(241,138,46,.38);box-shadow:0 12px 26px rgba(0,0,0,.18)}
+  .zsh-page .make-icon {width:100px;height:56px;border:1px solid #e7e9eb;border-radius:3px;background:#fff;padding:6px}
+  .zsh-page .make-name {color:#e9edf1;font:600 15px 'DM Sans',sans-serif}.zsh-page .make-count {color:#8795a2;font-size:10px}
+  .zsh-page .how-section {border-top:1px solid rgba(220,230,240,.08);border-bottom:1px solid rgba(220,230,240,.08);background:#0f1721;color:#edf1f5}
+  .zsh-page .how-item {padding:34px 24px}.zsh-page .how-number {color:rgba(241,138,46,.8);font:400 46px/1 'DM Sans',sans-serif}
+  .zsh-page .how-icon {color:#f1a04b}.zsh-page .how-title {color:#edf1f5;font:600 17px 'DM Sans',sans-serif}
+  .zsh-page .how-desc {color:#98a6b3;font-size:12px;line-height:1.7}
+  .zsh-page .cta-section {max-width:none;padding:50px 24px;background:linear-gradient(110deg,#141e2a,#0e151e);text-align:center}
+  .zsh-page .cta-title {color:#f0f3f6;font:500 clamp(32px,4vw,48px)/1.08 'DM Sans',sans-serif;letter-spacing:-.04em}
+  .zsh-page .cta-sub {max-width:620px;margin:13px auto 21px;color:#a0aeba;font-size:13px;line-height:1.7}
+  .zsh-page .cta-btn {border-radius:4px;background:#f18a2e;color:#1b140e;animation:none;padding:13px 20px;font-size:11px;font-weight:700}
+  .zsh-page .trust-bar {display:flex;justify-content:center;gap:clamp(16px,3vw,34px);border:0;border-top:1px solid rgba(220,230,240,.08);background:#0b1119;color:#92a0ae;padding:19px 22px}
+  .zsh-page .trust-item {color:#95a2ae;font:500 9px 'DM Sans',sans-serif;letter-spacing:.03em}
+  .zsh-page .whatsapp-float {border:1px solid rgba(255,255,255,.15);border-radius:50%;box-shadow:0 8px 24px rgba(37,211,102,.18)}
   @media(max-width:900px) {
-    .category-grid {grid-template-columns:repeat(3,minmax(0,1fr))}
-    .hero {padding-top:62px}
-    .floating-wheel {right:7%;top:12%}
-    .floating-gear {right:15%;top:51%}
-    .floating-disc {right:5%;bottom:18%}
+    .zsh-page .hero-content {grid-template-columns:minmax(0,1fr) minmax(240px,.8fr);gap:26px;padding:0 24px}
+    .zsh-page .category-grid {grid-template-columns:repeat(3,minmax(0,1fr))}
   }
   @media(max-width:680px) {
-    .hero {padding:52px 0 88px}
-    .hero-content {padding:0 20px}
-    .hero-headline {font-size:clamp(36px,10vw,54px)}
-    .hero-sub {font-size:15px}
-    .hero-assurances {gap:9px 16px}
-    .floating-part {opacity:.55}
-    .floating-wheel {width:46px;height:46px;right:7%;top:8%}
-    .floating-gear {width:34px;height:34px;right:8%;top:58%}
-    .floating-disc {display:none}
-    .vehicle-search-panel {margin:-50px 14px 0;padding:16px 14px;border-radius:7px}
-    .search-panel-heading {align-items:flex-start;flex-direction:column}
-    .search-tabs {width:100%}
-    .search-tab {flex:1;padding:9px 8px}
-    .market-search-row,.vehicle-fields {flex-direction:column}
-    .search-btn {width:100%}
-    .search-note {width:100%;margin:2px 0 0}
-    .section-heading-row {align-items:flex-start;flex-direction:column}
-    .category-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .category-card {min-height:128px;padding:14px}
-    .makes-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
-    .section {padding:50px 18px}
-    .trust-bar {flex-wrap:wrap}
+    .zsh-page .hero {padding:42px 0 32px}
+    .zsh-page .hero-content {grid-template-columns:1fr;padding:0 19px;gap:26px}
+    .zsh-page .hero-headline {font-size:clamp(43px,12vw,61px)}
+    .zsh-page .hero-sub {font-size:13px}.zsh-page .hero-assurances {gap:8px 14px}
+    .zsh-page .floating-part {opacity:.35}
+    .zsh-page .floating-wheel {width:42px;height:42px;right:6%;top:2%}.zsh-page .floating-gear {width:34px;height:34px;right:12%;top:26%}
+    .zsh-page .floating-disc {display:none}
+    .zsh-page .brand-spotlight {max-width:460px;justify-self:stretch;padding:13px}
+    .zsh-page .brand-spotlight-copy {padding:12px 2px 3px}.zsh-page .brand-spotlight-copy h2 {font-size:17px}
+    .zsh-page .vehicle-search-panel {margin:22px 13px 0;padding:15px 13px}
+    .zsh-page .search-panel-heading {align-items:flex-start;flex-direction:column}
+    .zsh-page .search-tabs {width:100%}.zsh-page .search-tab {flex:1;padding:9px 7px}
+    .zsh-page .market-search-row,.zsh-page .vehicle-fields {flex-direction:column}
+    .zsh-page .search-btn {width:100%}.zsh-page .search-note {width:100%;margin:3px 0 0}
+    .zsh-page .garage-strip {margin:10px 13px 0;padding:10px;gap:8px}
+    .zsh-page .garage-copy small {display:none}.zsh-page .garage-search {font-size:10px}.zsh-page .garage-clear {font-size:9px}
+    .zsh-page .section-heading-row {align-items:flex-start;flex-direction:column}
+    .zsh-page .category-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .zsh-page .category-card {min-height:112px;padding:12px}
+    .zsh-page .makes-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+    .zsh-page .section {padding:46px 19px}.zsh-page .trust-bar {flex-wrap:wrap}
   }
   @media(prefers-reduced-motion:reduce) {
-    .floating-part {animation:none}
-    .category-card,.make-card {transition:none}
+    .zsh-page .floating-part {animation:none}
+    .zsh-page .category-card,.zsh-page .make-card {transition:none}
   }
-
 `
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
@@ -1281,11 +1274,25 @@ export default function HomePage() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    const searchTerm = searchMode === 'vehicle'
-      ? [vehicleMake.trim(), vehicleModel.trim()].filter(Boolean).join(' ')
-      : query.trim()
-    if (!searchTerm) return
 
+    if (searchMode === 'vehicle') {
+      const make = vehicleMake.trim()
+      const model = vehicleModel.trim()
+      if (!make && !model) return
+
+      const knownMake = MAKES.find(item => item.name.toLowerCase() === make.toLowerCase())?.name
+      const searchTerm = [make, model].filter(Boolean).join(' ')
+      setVehicleMemory(prev => ({ ...prev, make, model, lastSearch: searchTerm }))
+
+      const params = new URLSearchParams()
+      if (knownMake) params.set('make', knownMake)
+      params.set('q', model || make)
+      router.push(`/search?${params.toString()}`)
+      return
+    }
+
+    const searchTerm = query.trim()
+    if (!searchTerm) return
     setVehicleMemory(prev => ({ ...prev, lastSearch: searchTerm }))
     router.push(`/search?q=${encodeURIComponent(searchTerm)}`)
   }
@@ -1297,16 +1304,34 @@ export default function HomePage() {
   }
 
   const clearVehicleMemory = () => setVehicleMemory({})
+  const searchSavedVehicle = () => {
+    const make = vehicleMemory.make || ''
+    const model = vehicleMemory.model || ''
+    if (!make && !model) return
+    setVehicleMake(make)
+    setVehicleModel(model)
+    setSearchMode('vehicle')
+    const knownMake = MAKES.find(item => item.name.toLowerCase() === make.toLowerCase())?.name
+    const params = new URLSearchParams()
+    if (knownMake) params.set('make', knownMake)
+    params.set('q', model || make)
+    router.push(`/search?${params.toString()}`)
+  }
 
   return (
     <div className="zsh-page">
       <style>{CSS}</style>
 
-      {vehicleMemory.lastSearch && (
-        <div className="vehicle-memory">
-          <span aria-hidden="true">⌕</span>
-          <span>Last search: “{vehicleMemory.lastSearch}”</span>
-          <button className="vehicle-memory-btn" onClick={clearVehicleMemory} aria-label="Clear previous search">Clear</button>
+      {(vehicleMemory.make || vehicleMemory.lastSearch) && (
+        <div className="garage-strip">
+          <span className="garage-mark" aria-hidden="true">⌖</span>
+          <div className="garage-copy">
+            <span>{vehicleMemory.make && vehicleMemory.model ? 'YOUR GARAGE' : 'RECENT SEARCH'}</span>
+            <strong>{vehicleMemory.make && vehicleMemory.model ? `${vehicleMemory.make} ${vehicleMemory.model}` : vehicleMemory.lastSearch}</strong>
+            <small>Saved on this device</small>
+          </div>
+          {vehicleMemory.make && vehicleMemory.model && <button className="garage-search" onClick={searchSavedVehicle}>Search this vehicle <span aria-hidden="true">→</span></button>}
+          <button className="garage-clear" onClick={clearVehicleMemory} aria-label="Clear saved vehicle or recent search">Clear</button>
         </div>
       )}
 
@@ -1343,13 +1368,13 @@ export default function HomePage() {
         </div>
         <div className="hero-content">
           <div className="hero-copy">
-            <p className="eyebrow">ZEDSPAREHUB · LUSAKA, ZAMBIA</p>
+            <p className="eyebrow">BUILT FOR ZAMBIAN DRIVERS <span aria-hidden="true">·</span> LUSAKA</p>
             <h1 className="hero-headline">
-              Find parts for<br />
-              <span className="shimmer-word">the road ahead.</span>
+              Find it. Check it.<br />
+              <span className="shimmer-word">Get moving.</span>
             </h1>
             <p className="hero-sub">
-              Search the Zambian parts catalogue by part name, OEM number, vehicle make, model, or engine.
+              Search by part name, OEM number, or vehicle. Save your vehicle and come back to your search anytime.
             </p>
             <div className="hero-assurances" ref={statsRef}>
               <span><strong>{statsVisible ? count288 : 288}</strong> catalogue listings · coming soon</span>
@@ -1357,6 +1382,16 @@ export default function HomePage() {
               <span>Cash on delivery</span>
             </div>
           </div>
+          <aside className="brand-spotlight" aria-label="ZedSpareHub parts search">
+            <div className="brand-sheet-crop" role="img" aria-label="ZedSpareHub original logo, in orange and white on navy" />
+            <div className="brand-spotlight-copy">
+              <span className="spotlight-kicker">LOCAL PARTS. ONE STARTING POINT.</span>
+              <h2>Know the vehicle.<br />Narrow down the part.</h2>
+              <p>Make, model, engine code or part number — start with the detail you know.</p>
+              <a href="/request-part">Need a hand finding it? <span aria-hidden="true">↗</span></a>
+            </div>
+            <span className="brand-coordinate" aria-hidden="true">ZSH / 260</span>
+          </aside>
         </div>
 
         <div ref={searchRef} className="vehicle-search-panel">
@@ -1384,14 +1419,14 @@ export default function HomePage() {
               <div className="search-box">
                 <input
                   className="search-input-field"
-                  placeholder="Part name, OEM number, make, or model"
+                  placeholder="Part name, OEM number, or part code"
                   value={query}
                   onChange={e => {
                     setQuery(e.target.value)
                     setSuggestionsVisible(true)
                   }}
                   onFocus={() => setSuggestionsVisible(true)}
-                  aria-label="Search by part name, number, or vehicle"
+                  aria-label="Search by part name, number, or code"
                 />
                 <span className="search-icon-wrap" aria-hidden="true">
                   <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -1425,7 +1460,7 @@ export default function HomePage() {
             {POPULAR_PARTS.slice(0, 4).map(p => (
               <button key={p} type="button" className="popular-chip" onClick={() => goSearch(p)}>{p}</button>
             ))}
-            <span className="search-note">Listings are coming soon; please confirm before ordering.</span>
+            <span className="search-note">Availability is being confirmed. Check before ordering.</span>
           </div>
         </div>
       </section>
@@ -1433,9 +1468,9 @@ export default function HomePage() {
       <section className="section category-section" aria-labelledby="shop-by-part">
         <div className="section-heading-row">
           <div>
-            <p className="section-eyebrow">BROWSE THE CATALOGUE</p>
-            <h2 className="section-title" id="shop-by-part">Shop by part</h2>
-            <p className="section-intro">Choose a category to browse parts arriving soon.</p>
+            <p className="section-eyebrow">START WITH WHAT YOU KNOW</p>
+            <h2 className="section-title" id="shop-by-part">Find it by category</h2>
+            <p className="section-intro">Explore the catalogue. Listings will open as availability is confirmed.</p>
           </div>
           <a href="/search" className="section-link">Browse all parts <span aria-hidden="true">→</span></a>
         </div>
@@ -1453,9 +1488,9 @@ export default function HomePage() {
       {/* ── Makes ── */}
       <div className="section">
         <p className="section-eyebrow">
-          <span>⚡</span> Browse by make
+          <span>⌖</span> Search made familiar
         </p>
-        <h2 className="section-title">SHOP BY BRAND</h2>
+        <h2 className="section-title">Popular vehicle makes</h2>
         <div className="makes-grid">
           {MAKES.map((m, i) => (
             <MakeCard key={m.name} make={m} index={i} />
@@ -1467,9 +1502,9 @@ export default function HomePage() {
       <div className="how-section">
         <div className="section">
           <p className="section-eyebrow">
-            <span>📋</span> Simple process
+            <span>↗</span> From search to confirmation
           </p>
-          <h2 className="section-title">HOW IT WORKS</h2>
+          <h2 className="section-title">A clearer way to start</h2>
           <div className="how-grid">
             {HOW_IT_WORKS.map((s, i) => (
               <div 
@@ -1492,12 +1527,12 @@ export default function HomePage() {
       {/* ── CTA ── */}
       <div className="cta-section">
         <div className="cta-glow" aria-hidden="true" />
-        <h2 className="cta-title">READY TO FIND<br />YOUR PART?</h2>
+        <h2 className="cta-title">Looking for a part<br />that isn’t listed?</h2>
         <p className="cta-sub">
-          Explore the upcoming catalogue or tell us what part you need. We’ll help you check the listing before you order.
+          Share your vehicle details and the part you need. We’ll use that information to check availability with you.
         </p>
-        <a href="/search" className="cta-btn">
-          Browse All Parts
+        <a href="/request-part" className="cta-btn">
+          Request a Part
           <span className="arrow">→</span>
         </a>
       </div>
@@ -1505,11 +1540,10 @@ export default function HomePage() {
       {/* ── Trust bar ── */}
       <div className="trust-bar">
         {[
-          { icon: '↗', text: 'Browse the catalogue' },
-          { icon: '⌕', text: 'Search by vehicle' },
-          { icon: '💵', text: 'Cash on delivery' },
-          { icon: '✳', text: 'Request a part' },
-          { icon: '◉', text: 'Contact on WhatsApp' },
+          { icon: '⌖', text: 'Made for Zambian drivers' },
+          { icon: '⚙', text: 'Search by vehicle or part' },
+          { icon: '✓', text: 'Confirm availability first' },
+          { icon: '↗', text: 'Request a part' },
         ].map(t => (
           <div key={t.text} className="trust-item">
             <span className="trust-icon" aria-hidden="true">{t.icon}</span>
