@@ -723,6 +723,90 @@ const CSS = `
     .results-controls { width: 100%; }
     .sort-select { flex: 1; }
   }
+  /* ── Warm graphite catalogue styling ── */
+  .search-page {
+    --amber:#d4af70;
+    --amber-dim:rgba(212,175,112,.12);
+    --amber-glow:rgba(212,175,112,.24);
+    --surface:#101310;
+    --surface-2:#171b17;
+    --surface-3:#232923;
+    --surface-glass:rgba(23,27,23,.97);
+    --border:rgba(237,232,220,.12);
+    --border-amber:rgba(212,175,112,.34);
+    --text:#f2eee5;
+    --text-dim:rgba(242,238,229,.72);
+    --steel:#8c9189;
+    --steel-light:#b7b9b2;
+    background:
+      radial-gradient(ellipse at 76% 0%,rgba(116,103,73,.1),transparent 35%),
+      var(--surface);
+  }
+  .search-header {
+    background:rgba(20,24,20,.94);
+    border-color:var(--border);
+    padding-top:26px;padding-bottom:24px;
+  }
+  .search-form { margin-bottom:0; }
+  .search-input,.filter-select,.price-input,.sort-select {
+    border-radius:4px;
+    background-color:#20251f;
+    border-color:rgba(242,238,229,.13);
+  }
+  .search-input:focus,.filter-select:focus,.price-input:focus,.sort-select:focus {
+    border-color:var(--amber);
+    box-shadow:0 0 0 3px rgba(212,175,112,.12);
+  }
+  .search-btn { border-radius:4px;background:var(--amber); }
+  .search-btn:hover { background:#e2c38d;box-shadow:0 8px 24px rgba(212,175,112,.18); }
+  .filters-bar {
+    max-width:1280px;
+    padding-top:19px;padding-bottom:19px;
+    border-color:var(--border);
+  }
+  .filter-select,.price-input { min-height:42px; }
+  .results-header { padding-top:26px;padding-bottom:22px; }
+  .results-count { color:#aeb2a8; }
+  .results-count strong { color:#f1ede4; }
+  .results-container { padding-bottom:100px; }
+  .grid-3 { gap:16px; }
+  .part-card {
+    background:linear-gradient(145deg,#1c211c,#151915);
+    border:1px solid rgba(237,232,220,.13);
+    border-radius:5px;
+    padding:24px;
+    min-height:100%;
+  }
+  .part-card::before { background:linear-gradient(135deg,rgba(212,175,112,.08),transparent 60%); }
+  .part-card:hover {
+    border-color:rgba(212,175,112,.42);
+    box-shadow:0 18px 40px rgba(0,0,0,.28);
+    transform:translateY(-2px);
+  }
+  .card-brand { color:#f2eee5; }
+  .card-category { color:#cbc9bf;background:rgba(255,255,255,.065); }
+  .card-title { color:#f2eee5;font-size:18px;font-weight:600;letter-spacing:-.015em; }
+  .card-part-number { color:var(--amber); }
+  .card-meta-item,.card-engine,.card-seller { color:#adb1a7; }
+  .card-footer { border-color:var(--border); }
+  .card-price { color:#e3c58f;font:500 26px 'DM Sans',sans-serif;letter-spacing:-.04em; }
+  .badge-steel { color:#e1c68f;background:rgba(212,175,112,.1);border:1px solid rgba(212,175,112,.2); }
+  .badge-green { background:rgba(63,125,84,.16);color:#a6d4b2; }
+  .badge-amber { background:rgba(212,175,112,.14);color:#e3c58f; }
+  .badge-red { background:rgba(160,75,67,.15);color:#e2aaa3; }
+  .empty-title { font:500 38px 'DM Sans',sans-serif;letter-spacing:-.05em; }
+  .history-chip,.filter-chip { border-radius:3px; }
+  .view-toggle { border-radius:4px; }
+  .view-btn.active { color:var(--amber); }
+  .mobile-filter-btn { border-radius:4px; }
+  @media(max-width:768px) {
+    .search-header { padding:18px 20px; }
+    .filters-bar { padding:14px 20px; }
+    .results-header { padding:18px 20px; }
+    .results-container { padding:0 20px 70px; }
+    .part-card { padding:21px; }
+  }
+
 `
 
 // ─── Status Badge Component ──────────────────────────────────────────────────
@@ -1194,7 +1278,7 @@ function SearchContent() {
             <span>Searching...</span>
           ) : (
             <>
-              <strong>{total}</strong> part{total !== 1 ? 's' : ''} found
+              <strong>{total}</strong> catalogue listing{total !== 1 ? 's' : ''}
               {debouncedQuery && <span> for "<strong>{debouncedQuery}</strong>"</span>}
             </>
           )}
