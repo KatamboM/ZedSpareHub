@@ -3,12 +3,12 @@ import './globals.css'
 import SiteHeader from './components/SiteHeader'
 
 export const metadata: Metadata = {
-  title: 'ZedSpareHub — Find Every Part Fast',
-  description: "Zambia's auto parts marketplace. Search by part name, number, car model or engine code. Fast delivery across Lusaka.",
+  title: 'ZedSpareHub | Auto Parts Catalogue Zambia',
+  description: "Search the Zambian auto parts catalogue by part name, part number, make, model, or engine. Catalogue listings are being verified and coming soon.",
   keywords: 'car parts Zambia, spare parts Lusaka, auto parts, Toyota parts Zambia, ZedSpareHub',
   openGraph: {
-    title: 'ZedSpareHub — Find Every Part Fast',
-    description: "Zambia's auto parts marketplace.",
+    title: 'ZedSpareHub | Auto Parts Catalogue Zambia',
+    description: "Search parts by name, number, vehicle make, model, or engine. Catalogue listings are being verified and coming soon.",
     url: 'https://zedsparehub.com',
     siteName: 'ZedSpareHub',
   },
