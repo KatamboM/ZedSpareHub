@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { validatePartRequest } from '@/lib/part-request'
 import styles from './request.module.css'
 
@@ -18,6 +18,10 @@ const fields = [
 ] as const
 
 export default function RequestPartPage() {
+ const [prefill, setPrefill] = useState<Record<string, string>>({})
+ useEffect(() => {
+  setPrefill(Object.fromEntries(new URLSearchParams(window.location.search).entries()))
+ }, [])
  const [error,setError] = useState('')
  const [loading,setLoading] = useState(false)
  const [reference,setReference] = useState('')
@@ -50,7 +54,7 @@ export default function RequestPartPage() {
   </section> : <div className={styles.layout}>
    <form className={styles.form} onSubmit={submit}>
     <h2>Your details and vehicle</h2><p className={styles.hint}>Fields marked * are required. Leave any unknown optional details blank.</p>
-    <div className={styles.grid}>{fields.map(([name,label,required,max,placeholder])=><label key={name} htmlFor={name}>{label}{required?' *':''}<input id={name} name={name} required={required} maxLength={max} placeholder={placeholder} type={name==='buyer_phone'?'tel':'text'} inputMode={name==='vehicle_year'?'numeric':undefined} autoComplete={name==='buyer_name'?'name':name==='buyer_phone'?'tel':'off'} /></label>)}</div>
+    <div className={styles.grid}>{fields.map(([name,label,required,max,placeholder])=><label key={name} htmlFor={name}>{label}{required?' *':''}<input id={name} name={name} required={required} maxLength={max} placeholder={placeholder} value={prefill[name] || ''} onChange={event => setPrefill(current => ({ ...current, [name]: event.target.value }))} type={name==='buyer_phone'?'tel':'text'} inputMode={name==='vehicle_year'?'numeric':undefined} autoComplete={name==='buyer_name'?'name':name==='buyer_phone'?'tel':'off'} /></label>)}</div>
     <label htmlFor="notes">Extra details (optional)<textarea id="notes" name="notes" maxLength={1500} rows={4} placeholder="Which side, quantity needed, new or used, or anything else that would help us find it." /></label>
     <div className={styles.trap} aria-hidden="true"><label htmlFor="website">Website<input id="website" name="website" tabIndex={-1} autoComplete="off" /></label></div>
     <p className={styles.hint}>We use your contact and vehicle details to respond to this request. No payment is required.</p>

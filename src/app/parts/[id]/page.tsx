@@ -79,6 +79,53 @@ export default async function PartPage({ params }: { params: { id: string } }) {
             )}
           </div>
 
+          {/* Fitment guidance */}
+          <section
+            aria-labelledby="fitment-heading"
+            style={{
+              border: '1px solid rgba(240,165,0,0.3)',
+              borderRadius: '10px',
+              padding: '22px',
+              marginBottom: '32px',
+              background: 'linear-gradient(135deg, rgba(240,165,0,0.08), var(--surface-2))',
+            }}
+          >
+            <p className="text-xs text-amber mono" style={{ letterSpacing: '0.1em', marginBottom: '8px' }}>CHECK BEFORE YOU BUY</p>
+            <h2 id="fitment-heading" className="display" style={{ fontSize: '24px', marginBottom: '8px' }}>VEHICLE COMPATIBILITY</h2>
+            <p className="text-sm text-steel" style={{ marginBottom: '18px' }}>
+              These are the vehicle details listed for this part. They are a guide, not a guaranteed fitment.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
+              {[
+                { label: 'Make', value: part.car_make },
+                { label: 'Model', value: part.car_model },
+                { label: 'Engine code', value: part.engine_code },
+                { label: 'Year range', value: part.year_range },
+              ].map((item) => (
+                <div key={item.label} style={{ padding: '12px 14px', borderRadius: '7px', background: 'rgba(0,0,0,0.22)', border: '1px solid var(--border)' }}>
+                  <p className="text-xs text-steel" style={{ marginBottom: '5px' }}>{item.label}</p>
+                  <p className="text-sm" style={{ fontWeight: 600 }}>{item.value || 'Not provided'}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-sm" style={{ color: 'var(--steel-light)', lineHeight: 1.6, marginTop: '16px' }}>
+              Trim, engine variant and chassis can affect fit. Check the part number against your old part or vehicle frame number, and confirm with the seller before ordering.
+            </p>
+            <a
+              href={`/request-part?${new URLSearchParams({
+                part_name: part.part_name || '',
+                part_number: part.part_number || '',
+                car_make: part.car_make || '',
+                car_model: part.car_model || '',
+                engine_code: part.engine_code || '',
+              }).toString()}`}
+              className="btn btn-amber"
+              style={{ display: 'inline-flex', marginTop: '8px', textDecoration: 'none' }}
+            >
+              Request a fitment check →
+            </a>
+          </section>
+
           {/* Specs table */}
           <h2 className="display" style={{ fontSize: '24px', marginBottom: '16px' }}>PART DETAILS</h2>
           <div style={{ border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
@@ -86,10 +133,6 @@ export default async function PartPage({ params }: { params: { id: string } }) {
               { label: 'SKU ID',       value: part.sku_id },
               { label: 'Part Number',  value: part.part_number },
               { label: 'Category',     value: part.category },
-              { label: 'Car Make',     value: part.car_make },
-              { label: 'Car Model',    value: part.car_model },
-              { label: 'Engine Code',  value: part.engine_code },
-              { label: 'Year Range',   value: part.year_range },
               { label: 'Seller',       value: part.seller },
               { label: 'In Stock',     value: part.qty_in_stock > 0 ? `${part.qty_in_stock} units` : 'Limited' },
             ].map((row, i) => (
