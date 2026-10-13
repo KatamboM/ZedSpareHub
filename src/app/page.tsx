@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface VehicleMemory {
-  vin?: string
   make?: string
   model?: string
   year?: string
@@ -36,13 +35,6 @@ const MAKES = [
   { name: 'Suzuki', count: 8, logo: 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/bb2d661f28ce617dba8a51bdfc2069a3381a23b0/logos/optimized/suzuki.png', color: '#E20A17' },
 ]
 
-const TICKER_ITEMS = [
-  'GENUINE PARTS ONLY', 'LUSAKA DELIVERY', 'TRUSTED SELLERS',
-  '288+ PARTS IN STOCK', 'TOYOTA · NISSAN · HONDA · MITSUBISHI',
-  'PARTS AT YOUR CONVENIENCE', 'SAME-DAY DISPATCH', 'VIN LOOKUP ENABLED',
-  'CASH ON DELIVERY', 'WHATSAPP SUPPORT 24/7',
-]
-
 const SEARCH_SUGGESTIONS: SearchSuggestion[] = [
   { text: 'Brake pads for Toyota Hilux 2019', category: 'Popular', icon: '🔧' },
   { text: 'Oil filter 90915-YZZD2', category: 'OEM Number', icon: '#' },
@@ -50,25 +42,18 @@ const SEARCH_SUGGESTIONS: SearchSuggestion[] = [
   { text: 'Control arm Nissan X-Trail T32', category: 'Model Specific', icon: '🚗' },
 ]
 
+const PART_CATEGORIES = [
+  { label: 'Engine parts', value: 'Engine Parts', icon: '⚙' },
+  { label: 'Brakes', value: 'Brakes', icon: '◉' },
+  { label: 'Suspension', value: 'Suspension', icon: '⌁' },
+  { label: 'Filters', value: 'Filters', icon: '▤' },
+  { label: 'Electrical', value: 'Electrical', icon: 'ϟ' },
+]
+
 const HOW_IT_WORKS = [
-  { 
-    n: '01', 
-    title: 'Search',  
-    desc: 'Find your part by name, OEM number, car model, or engine code. Our VIN decoder instantly validates compatibility.',
-    icon: '🔍'
-  },
-  { 
-    n: '02', 
-    title: 'Verify',   
-    desc: 'AI-powered fitment check confirms the part matches your exact vehicle trim and submodel. No guesswork.',
-    icon: '✓'
-  },
-  { 
-    n: '03', 
-    title: 'Deliver', 
-    desc: 'Pay cash on delivery across Lusaka. Real-time tracking from seller to your door. No upfront payment needed.',
-    icon: '🚚'
-  },
+  { n: '01', title: 'Search', desc: 'Search by part name, OEM number, vehicle make, model, or engine code.', icon: '⌕' },
+  { n: '02', title: 'Check', desc: 'Review the vehicle details on each listing. If you are unsure about fit, ask us before ordering.', icon: '✓' },
+  { n: '03', title: 'Request', desc: 'Send a part request or contact us on WhatsApp to confirm availability, price, and delivery.', icon: '↗' },
 ]
 
 // ─── Custom Hooks ────────────────────────────────────────────────────────────
@@ -576,12 +561,6 @@ const CSS = `
   }
   .search-btn:active { transform: translateY(0); }
 
-  .vin-input {
-    font-family: 'JetBrains Mono', monospace !important;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
   .popular-row {
     display: flex;
     flex-wrap: wrap;
@@ -1038,6 +1017,127 @@ const CSS = `
     .trust-bar { gap: 16px; }
     .trust-item { font-size: 11px; }
   }
+  /* ZedSpareHub dark identity */
+  .zsh-page {
+    --amber:#f18a2e;--amber-dim:rgba(241,138,46,.12);--amber-glow:rgba(241,138,46,.25);
+    --surface:#0c121b;--surface-2:#121b26;--surface-3:#1a2634;--surface-glass:rgba(17,26,37,.97);
+    --border:rgba(213,224,236,.1);--border-amber:rgba(241,138,46,.32);--text:#edf1f5;--text-dim:#abb7c4;
+    --steel:#8794a2;--steel-light:#b3bec9;--success:#58b785;--warning:#e7a84b;
+    background:#0a1018;color:#edf1f5;font-family:'DM Sans',system-ui,sans-serif;
+  }
+  .zsh-page .hero {position:relative;min-height:0;padding:clamp(56px,7vw,86px) 0 46px;overflow:hidden;background:radial-gradient(ellipse at 72% 24%,rgba(35,68,101,.35),transparent 36%),linear-gradient(115deg,#101a26 0%,#0a1018 68%,#111924 100%);color:#f1f4f6}
+  .zsh-page .hero-grid {opacity:.48;background-image:linear-gradient(rgba(239,244,248,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(239,244,248,.025) 1px,transparent 1px);mask-image:radial-gradient(ellipse 70% 80% at 65% 45%,black 20%,transparent 100%)}
+  .zsh-page .hero-glow-1 {top:-95px;left:auto;right:4%;width:52vw;height:490px;background:radial-gradient(ellipse,rgba(241,138,46,.13),transparent 68%);animation:none}
+  .zsh-page .hero-content {position:relative;z-index:1;max-width:1260px;padding:0 clamp(22px,5vw,68px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);align-items:center;gap:clamp(34px,6vw,76px)}
+  .zsh-page .hero-copy {min-width:0}
+  .zsh-page .eyebrow {margin:0 0 20px;padding:0;border:0;background:none;color:#f1a34d;font:700 10px/1.4 'DM Sans',sans-serif;letter-spacing:.16em}
+  .zsh-page .eyebrow span {padding:0 5px;color:#707e8e}
+  .zsh-page .hero-headline {max-width:690px;margin:0 0 20px;color:#f0f3f6;font:600 clamp(48px,6.3vw,78px)/.99 'DM Sans',sans-serif;letter-spacing:-.058em;text-wrap:balance}
+  .zsh-page .hero-headline .shimmer-word {color:#f18a2e;-webkit-text-fill-color:#f18a2e;background:none;animation:none;font-weight:500}
+  .zsh-page .hero-sub {max-width:530px;margin:0 0 27px;color:#aebac6;font-size:15px;line-height:1.75}
+  .zsh-page .hero-assurances {display:flex;gap:12px 20px;flex-wrap:wrap;color:#aab6c2;font-size:11px}
+  .zsh-page .hero-assurances span {display:inline-flex;align-items:center;gap:6px}
+  .zsh-page .hero-assurances span::before {content:'•';color:#f18a2e}
+  .zsh-page .hero-assurances strong {color:#eff2f5;font-weight:600}
+  .zsh-page .brand-spotlight {position:relative;max-width:390px;width:100%;justify-self:end;padding:18px;border:1px solid rgba(237,242,247,.1);border-radius:7px;background:linear-gradient(145deg,rgba(19,31,45,.96),rgba(13,21,31,.98));box-shadow:0 24px 70px rgba(0,0,0,.28)}
+  .zsh-page .brand-sheet-crop {width:100%;aspect-ratio:768/359;border-radius:4px;background-image:url('/brand/zedsparehub-lockup.png');background-size:200% auto;background-position:left bottom;background-repeat:no-repeat;background-color:#203754}
+  .zsh-page .brand-spotlight-copy {padding:17px 3px 5px}
+  .zsh-page .spotlight-kicker {color:#f0a04b;font:600 9px/1.4 'DM Sans',sans-serif;letter-spacing:.12em}
+  .zsh-page .brand-spotlight-copy h2 {margin:8px 0;color:#edf1f5;font-size:19px;font-weight:600;line-height:1.3;letter-spacing:-.03em}
+  .zsh-page .brand-spotlight-copy p {margin:0;color:#98a7b5;font-size:12px;line-height:1.65}
+  .zsh-page .brand-spotlight-copy a {display:inline-flex;gap:8px;margin-top:13px;color:#f3a14d;font-size:11px;font-weight:600;text-decoration:none}
+  .zsh-page .brand-spotlight-copy a:hover {color:#ffc176}
+  .zsh-page .brand-coordinate {position:absolute;right:18px;top:18px;padding:5px 7px;border:1px solid rgba(255,255,255,.18);border-radius:3px;background:rgba(8,14,22,.75);color:#e2e8ed;font:9px 'JetBrains Mono',monospace;letter-spacing:.04em}
+  .zsh-page .floating-parts {color:rgba(241,138,46,.15);pointer-events:none}
+  .zsh-page .floating-part {opacity:.7}
+  .zsh-page .floating-wheel {right:7%;top:10%}.zsh-page .floating-gear {right:33%;top:17%}.zsh-page .floating-disc {right:4%;bottom:9%}
+  .zsh-page .vehicle-search-panel {position:relative;z-index:3;max-width:1124px;margin:36px auto 0;padding:22px clamp(17px,3vw,30px);border:1px solid rgba(213,224,236,.12);border-top:2px solid #e8832e;border-radius:6px;background:linear-gradient(130deg,#121c28,#0f1721);color:#e9edf1;box-shadow:0 17px 44px rgba(0,0,0,.22)}
+  .zsh-page .search-panel-heading {display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
+  .zsh-page .search-tabs {display:flex;gap:6px;margin:0}
+  .zsh-page .search-tab {padding:9px 13px;border:1px solid transparent;border-radius:4px;background:transparent;color:#94a2af;font-size:12px;font-weight:600;cursor:pointer}
+  .zsh-page .search-tab.active {border-color:rgba(241,138,46,.28);background:rgba(241,138,46,.1);color:#f5a355}
+  .zsh-page .search-panel-request {color:#a5b3c0;font-size:11px;text-decoration:none}.zsh-page .search-panel-request:hover {color:#f1a04c}
+  .zsh-page .market-search-row {display:flex;gap:9px}
+  .zsh-page .search-box,.zsh-page .vehicle-fields {position:relative;display:flex;flex:1;gap:9px}
+  .zsh-page .search-input-field {width:100%;min-height:50px;padding:0 16px;border:1px solid #344352;border-radius:4px;background:#0b121a;color:#ecf0f4;font-size:14px}
+  .zsh-page .search-input-field::placeholder {color:#778695}
+  .zsh-page .search-input-field:focus {outline:0;border-color:#df8738;box-shadow:0 0 0 3px rgba(223,135,56,.12)}
+  .zsh-page .search-icon-wrap {position:absolute;top:16px;right:15px;color:#aab5bf}
+  .zsh-page .search-btn {min-height:50px;padding:0 21px;border:0;border-radius:4px;background:#f18a2e;color:#20160e;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer}
+  .zsh-page .search-btn:hover {background:#ff9e42;box-shadow:0 6px 19px rgba(241,138,46,.16)}
+  .zsh-page .search-suggestions {position:absolute;z-index:8;top:calc(100% + 4px);left:0;right:0;border:1px solid #334456;border-radius:4px;background:#111a25;color:#e7edf2;box-shadow:0 14px 28px rgba(0,0,0,.35)}
+  .zsh-page .suggestion-item {padding:11px 13px}.zsh-page .suggestion-item:hover {background:#1a2837}
+  .zsh-page .search-panel-bottom {display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:13px}
+  .zsh-page .popular-label {margin-right:3px;color:#8f9eac;font-size:10px;font-weight:600}
+  .zsh-page .popular-chip {padding:5px 9px;border:1px solid #344353;border-radius:3px;background:#151f2b;color:#c0c9d2;font-size:10px;cursor:pointer}
+  .zsh-page .popular-chip:hover {border-color:#d78132;color:#f2a153}
+  .zsh-page .search-note {margin-left:auto;color:#7e8c99;font-size:10px}
+  .zsh-page .garage-strip {max-width:1124px;margin:14px auto 0;padding:12px 16px;display:flex;align-items:center;gap:12px;border:1px solid rgba(241,138,46,.2);border-radius:5px;background:#111a25;color:#dce4eb}
+  .zsh-page .garage-mark {display:grid;width:34px;height:34px;place-items:center;border-radius:4px;background:rgba(241,138,46,.11);color:#f3a04a;font-size:22px}
+  .zsh-page .garage-copy {display:flex;min-width:0;flex-direction:column;gap:2px}
+  .zsh-page .garage-copy span {color:#f1a14e;font:600 8px 'DM Sans',sans-serif;letter-spacing:.12em}
+  .zsh-page .garage-copy strong {overflow:hidden;color:#eff2f5;font-size:12px;text-overflow:ellipsis;white-space:nowrap}
+  .zsh-page .garage-copy small {color:#81909d;font-size:9px}
+  .zsh-page .garage-search {margin-left:auto;border:0;background:transparent;color:#f4a355;font-size:11px;font-weight:600;cursor:pointer}
+  .zsh-page .garage-clear {border:0;background:transparent;color:#83909c;font-size:10px;cursor:pointer}
+  .zsh-page .section {max-width:1260px;padding:62px clamp(22px,5vw,68px)}
+  .zsh-page .section-heading-row {display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:21px}
+  .zsh-page .section-eyebrow {color:#ef9b49;font:600 9px/1.4 'DM Sans',sans-serif;letter-spacing:.13em}
+  .zsh-page .section-title {margin:8px 0;color:#e8edf1;font:500 clamp(28px,3vw,38px)/1.15 'DM Sans',sans-serif;letter-spacing:-.04em}
+  .zsh-page .section-intro {margin:0;color:#96a4b1;font-size:12px;line-height:1.6}
+  .zsh-page .section-link {color:#f0a151;font-size:11px;font-weight:600;text-decoration:none}.zsh-page .section-link:hover {color:#ffc176}
+  .zsh-page .category-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+  .zsh-page .category-card {position:relative;display:flex;min-height:126px;flex-direction:column;justify-content:space-between;padding:15px;border:1px solid rgba(215,227,239,.1);border-radius:5px;background:linear-gradient(145deg,#131e2a,#101720);color:#e6ebef;text-decoration:none;transition:transform .18s,border-color .18s,background .18s}
+  .zsh-page .category-card:hover {transform:translateY(-2px);border-color:rgba(241,138,46,.4);background:#172332}
+  .zsh-page .category-icon {display:grid;width:39px;height:39px;place-items:center;border-radius:5px;background:rgba(241,138,46,.11);color:#f1a04b;font-size:22px}
+  .zsh-page .category-title {font-size:12px;font-weight:600}.zsh-page .category-arrow {position:absolute;right:14px;bottom:14px;color:#758596;font-size:12px}
+  .zsh-page .makes-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .zsh-page .make-card {border:1px solid rgba(215,227,239,.1);border-radius:5px;background:#121b26;color:#e4eaf0;padding:17px 18px}
+  .zsh-page .make-card:hover {transform:translateY(-2px);border-color:rgba(241,138,46,.38);box-shadow:0 12px 26px rgba(0,0,0,.18)}
+  .zsh-page .make-icon {width:100px;height:56px;border:1px solid #e7e9eb;border-radius:3px;background:#fff;padding:6px}
+  .zsh-page .make-name {color:#e9edf1;font:600 15px 'DM Sans',sans-serif}.zsh-page .make-count {color:#8795a2;font-size:10px}
+  .zsh-page .how-section {border-top:1px solid rgba(220,230,240,.08);border-bottom:1px solid rgba(220,230,240,.08);background:#0f1721;color:#edf1f5}
+  .zsh-page .how-item {padding:34px 24px}.zsh-page .how-number {color:rgba(241,138,46,.8);font:400 46px/1 'DM Sans',sans-serif}
+  .zsh-page .how-icon {color:#f1a04b}.zsh-page .how-title {color:#edf1f5;font:600 17px 'DM Sans',sans-serif}
+  .zsh-page .how-desc {color:#98a6b3;font-size:12px;line-height:1.7}
+  .zsh-page .cta-section {max-width:none;padding:50px 24px;background:linear-gradient(110deg,#141e2a,#0e151e);text-align:center}
+  .zsh-page .cta-title {color:#f0f3f6;font:500 clamp(32px,4vw,48px)/1.08 'DM Sans',sans-serif;letter-spacing:-.04em}
+  .zsh-page .cta-sub {max-width:620px;margin:13px auto 21px;color:#a0aeba;font-size:13px;line-height:1.7}
+  .zsh-page .cta-btn {border-radius:4px;background:#f18a2e;color:#1b140e;animation:none;padding:13px 20px;font-size:11px;font-weight:700}
+  .zsh-page .trust-bar {display:flex;justify-content:center;gap:clamp(16px,3vw,34px);border:0;border-top:1px solid rgba(220,230,240,.08);background:#0b1119;color:#92a0ae;padding:19px 22px}
+  .zsh-page .trust-item {color:#95a2ae;font:500 9px 'DM Sans',sans-serif;letter-spacing:.03em}
+  .zsh-page .whatsapp-float {border:1px solid rgba(255,255,255,.15);border-radius:50%;box-shadow:0 8px 24px rgba(37,211,102,.18)}
+  @media(max-width:900px) {
+    .zsh-page .hero-content {grid-template-columns:minmax(0,1fr) minmax(240px,.8fr);gap:26px;padding:0 24px}
+    .zsh-page .category-grid {grid-template-columns:repeat(3,minmax(0,1fr))}
+  }
+  @media(max-width:680px) {
+    .zsh-page .hero {padding:42px 0 32px}
+    .zsh-page .hero-content {grid-template-columns:1fr;padding:0 19px;gap:26px}
+    .zsh-page .hero-headline {font-size:clamp(43px,12vw,61px)}
+    .zsh-page .hero-sub {font-size:13px}.zsh-page .hero-assurances {gap:8px 14px}
+    .zsh-page .floating-part {opacity:.35}
+    .zsh-page .floating-wheel {width:42px;height:42px;right:6%;top:2%}.zsh-page .floating-gear {width:34px;height:34px;right:12%;top:26%}
+    .zsh-page .floating-disc {display:none}
+    .zsh-page .brand-spotlight {max-width:460px;justify-self:stretch;padding:13px}
+    .zsh-page .brand-spotlight-copy {padding:12px 2px 3px}.zsh-page .brand-spotlight-copy h2 {font-size:17px}
+    .zsh-page .vehicle-search-panel {margin:22px 13px 0;padding:15px 13px}
+    .zsh-page .search-panel-heading {align-items:flex-start;flex-direction:column}
+    .zsh-page .search-tabs {width:100%}.zsh-page .search-tab {flex:1;padding:9px 7px}
+    .zsh-page .market-search-row,.zsh-page .vehicle-fields {flex-direction:column}
+    .zsh-page .search-btn {width:100%}.zsh-page .search-note {width:100%;margin:3px 0 0}
+    .zsh-page .garage-strip {margin:10px 13px 0;padding:10px;gap:8px}
+    .zsh-page .garage-copy small {display:none}.zsh-page .garage-search {font-size:10px}.zsh-page .garage-clear {font-size:9px}
+    .zsh-page .section-heading-row {align-items:flex-start;flex-direction:column}
+    .zsh-page .category-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .zsh-page .category-card {min-height:112px;padding:12px}
+    .zsh-page .makes-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+    .zsh-page .section {padding:46px 19px}.zsh-page .trust-bar {flex-wrap:wrap}
+  }
+  @media(prefers-reduced-motion:reduce) {
+    .zsh-page .floating-part {animation:none}
+    .zsh-page .category-card,.zsh-page .make-card {transition:none}
+  }
 `
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
@@ -1110,7 +1210,7 @@ function MakeCard({ make, index }: { make: typeof MAKES[0]; index: number }) {
         <img src={make.logo} alt="" width={112} height={64} loading="lazy" decoding="async" />
       </div>
       <div className="make-name">{make.name.toUpperCase()}</div>
-      <div className="make-count">{make.count}+ parts available</div>
+      <div className="make-count">Explore catalogue <span aria-hidden="true">↗</span></div>
     </a>
   )
 }
@@ -1118,7 +1218,9 @@ function MakeCard({ make, index }: { make: typeof MAKES[0]; index: number }) {
 // ─── Main Component ──────────────────────────────────────────────────────────
 export default function HomePage() {
   const [query, setQuery] = useState('')
-  const [searchMode, setSearchMode] = useState<'part' | 'vin'>('part')
+  const [searchMode, setSearchMode] = useState<'part' | 'vehicle'>('part')
+  const [vehicleMake, setVehicleMake] = useState('')
+  const [vehicleModel, setVehicleModel] = useState('')
   const [statsVisible, setStatsVisible] = useState(false)
   const [suggestionsVisible, setSuggestionsVisible] = useState(false)
   const [vehicleMemory, setVehicleMemory] = useLocalStorage<VehicleMemory>('zsh-vehicle', {})
@@ -1129,18 +1231,14 @@ export default function HomePage() {
   const router = useRouter()
 
   const count288 = useCountUp(288, 1800, statsVisible)
-  const count24  = useCountUp(24,  1400, statsVisible)
-  const count27  = useCountUp(27,  1500, statsVisible)
-  const count8   = useCountUp(8,   1200, statsVisible)
+  const count5 = useCountUp(5, 1200, statsVisible)
 
-  // Intersection Observer for stats
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setStatsVisible(true) },
-      { threshold: 0.3, rootMargin: '0px 0px -50px 0px' }
-    )
-    if (statsRef.current) obs.observe(statsRef.current)
-    return () => obs.disconnect()
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setStatsVisible(true)
+    }, { threshold: 0.3 })
+    if (statsRef.current) observer.observe(statsRef.current)
+    return () => observer.disconnect()
   }, [])
 
   // Intersection Observer for How It Works
@@ -1176,16 +1274,27 @@ export default function HomePage() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!query.trim()) return
-    
-    if (searchMode === 'vin') {
-      // Save VIN to memory
-      setVehicleMemory(prev => ({ ...prev, vin: query.trim().toUpperCase() }))
-      router.push(`/search?vin=${encodeURIComponent(query.trim().toUpperCase())}`)
-    } else {
-      setVehicleMemory(prev => ({ ...prev, lastSearch: query.trim() }))
-      router.push(`/search?q=${encodeURIComponent(query.trim())}`)
+
+    if (searchMode === 'vehicle') {
+      const make = vehicleMake.trim()
+      const model = vehicleModel.trim()
+      if (!make && !model) return
+
+      const knownMake = MAKES.find(item => item.name.toLowerCase() === make.toLowerCase())?.name
+      const searchTerm = [make, model].filter(Boolean).join(' ')
+      setVehicleMemory(prev => ({ ...prev, make, model, lastSearch: searchTerm }))
+
+      const params = new URLSearchParams()
+      if (knownMake) params.set('make', knownMake)
+      params.set('q', model || make)
+      router.push(`/search?${params.toString()}`)
+      return
     }
+
+    const searchTerm = query.trim()
+    if (!searchTerm) return
+    setVehicleMemory(prev => ({ ...prev, lastSearch: searchTerm }))
+    router.push(`/search?q=${encodeURIComponent(searchTerm)}`)
   }
 
   const goSearch = (term: string) => {
@@ -1195,177 +1304,193 @@ export default function HomePage() {
   }
 
   const clearVehicleMemory = () => setVehicleMemory({})
+  const searchSavedVehicle = () => {
+    const make = vehicleMemory.make || ''
+    const model = vehicleMemory.model || ''
+    if (!make && !model) return
+    setVehicleMake(make)
+    setVehicleModel(model)
+    setSearchMode('vehicle')
+    const knownMake = MAKES.find(item => item.name.toLowerCase() === make.toLowerCase())?.name
+    const params = new URLSearchParams()
+    if (knownMake) params.set('make', knownMake)
+    params.set('q', model || make)
+    router.push(`/search?${params.toString()}`)
+  }
 
   return (
     <div className="zsh-page">
       <style>{CSS}</style>
 
-      {/* ── Ticker ── */}
-      <div className="ticker-wrap" aria-label="Announcements">
-        <div className="ticker-inner">
-          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-            <span key={i} className="ticker-item">
-              <span className="ticker-dot" aria-hidden="true" />
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Vehicle Memory Banner ── */}
-      {(vehicleMemory.vin || vehicleMemory.lastSearch) && (
-        <div className="vehicle-memory animate-fade-up">
-          <span>🚗</span>
-          <span>
-            {vehicleMemory.vin 
-              ? `Last VIN: ${vehicleMemory.vin}` 
-              : `Last search: "${vehicleMemory.lastSearch}"`}
-          </span>
-          <button 
-            className="vehicle-memory-btn" 
-            onClick={clearVehicleMemory}
-            aria-label="Clear vehicle memory"
-          >
-            Clear
-          </button>
+      {(vehicleMemory.make || vehicleMemory.lastSearch) && (
+        <div className="garage-strip">
+          <span className="garage-mark" aria-hidden="true">⌖</span>
+          <div className="garage-copy">
+            <span>{vehicleMemory.make && vehicleMemory.model ? 'YOUR GARAGE' : 'RECENT SEARCH'}</span>
+            <strong>{vehicleMemory.make && vehicleMemory.model ? `${vehicleMemory.make} ${vehicleMemory.model}` : vehicleMemory.lastSearch}</strong>
+            <small>Saved on this device</small>
+          </div>
+          {vehicleMemory.make && vehicleMemory.model && <button className="garage-search" onClick={searchSavedVehicle}>Search this vehicle <span aria-hidden="true">→</span></button>}
+          <button className="garage-clear" onClick={clearVehicleMemory} aria-label="Clear saved vehicle or recent search">Clear</button>
         </div>
       )}
 
-      {/* ── Hero ── */}
       <section className="hero">
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-glow-1" aria-hidden="true" />
-        <div className="hero-glow-2" aria-hidden="true" />
-        <div className="hero-scan-line" aria-hidden="true" />
-
-        <div className="hero-content">
-          {/* Eyebrow */}
-          <div className="eyebrow animate-fade-up delay-1">
-            <span className="eyebrow-dot" aria-hidden="true" />
-            <span className="eyebrow-text">Lusaka · Zambia · Est 2026</span>
+        <div className="floating-parts" aria-hidden="true">
+          <div className="floating-part floating-wheel">
+            <svg viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="25" stroke="currentColor" strokeWidth="2.5" />
+              <circle cx="32" cy="32" r="16" stroke="currentColor" strokeWidth="2" />
+              <circle cx="32" cy="32" r="5" fill="currentColor" />
+              <path d="M32 16v11m0 10v11M16 32h11m10 0h11M21 21l8 8m6 6 8 8m0-22-8 8m-6 6-8 8" stroke="currentColor" strokeWidth="2" />
+            </svg>
           </div>
+          <div className="floating-part floating-gear">
+            <svg viewBox="0 0 64 64" fill="none">
+              <path d="M27 7h10l2 7a20 20 0 0 1 5 2l6-3 7 8-4 6a20 20 0 0 1 1 5l5 5-4 10-7-1a20 20 0 0 1-4 4l-1 7H29l-2-7a20 20 0 0 1-5-2l-6 3-7-8 4-6a20 20 0 0 1-1-5l-5-5 4-10 7 1a20 20 0 0 1 4-4l1-7Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
+              <circle cx="32" cy="32" r="8" stroke="currentColor" strokeWidth="2.5" />
+            </svg>
+          </div>
+          <div className="floating-part floating-disc">
+            <svg viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="24" stroke="currentColor" strokeWidth="3" />
+              <circle cx="32" cy="32" r="14" stroke="currentColor" strokeWidth="2" />
+              <circle cx="32" cy="32" r="4" fill="currentColor" />
+              <circle cx="32" cy="15" r="2" fill="currentColor" />
+              <circle cx="47" cy="25" r="2" fill="currentColor" />
+              <circle cx="42" cy="43" r="2" fill="currentColor" />
+              <circle cx="22" cy="43" r="2" fill="currentColor" />
+              <circle cx="17" cy="25" r="2" fill="currentColor" />
+            </svg>
+          </div>
+        </div>
+        <div className="hero-content">
+          <div className="hero-copy">
+            <p className="eyebrow">BUILT FOR ZAMBIAN DRIVERS <span aria-hidden="true">·</span> LUSAKA</p>
+            <h1 className="hero-headline">
+              Find it. Check it.<br />
+              <span className="shimmer-word">Get moving.</span>
+            </h1>
+            <p className="hero-sub">
+              Search by part name, OEM number, or vehicle. Save your vehicle and come back to your search anytime.
+            </p>
+            <div className="hero-assurances" ref={statsRef}>
+              <span><strong>{statsVisible ? count288 : 288}</strong> catalogue listings · coming soon</span>
+              <span><strong>{statsVisible ? count5 : 5}</strong> categories</span>
+              <span>Cash on delivery</span>
+            </div>
+          </div>
+          <aside className="brand-spotlight" aria-label="ZedSpareHub parts search">
+            <div className="brand-sheet-crop" role="img" aria-label="ZedSpareHub original logo, in orange and white on navy" />
+            <div className="brand-spotlight-copy">
+              <span className="spotlight-kicker">LOCAL PARTS. ONE STARTING POINT.</span>
+              <h2>Know the vehicle.<br />Narrow down the part.</h2>
+              <p>Make, model, engine code or part number — start with the detail you know.</p>
+              <a href="/request-part">Need a hand finding it? <span aria-hidden="true">↗</span></a>
+            </div>
+            <span className="brand-coordinate" aria-hidden="true">ZSH / 260</span>
+          </aside>
+        </div>
 
-          {/* Headline */}
-          <h1 className="hero-headline animate-fade-up delay-2">
-            FIND EVERY<br />
-            <span className="shimmer-word">PART</span>{' '}
-            <span className="outline-word">FAST</span>
-          </h1>
-
-          {/* Subheading */}
-          <p className="hero-sub animate-fade-up delay-3">
-            Search by part name, OEM number, VIN, car model, or engine code.
-            Genuine parts from verified Lusaka sellers — delivered to your door with COD.
-          </p>
-
-          {/* Search */}
-          <div ref={searchRef} className="search-container animate-fade-up delay-4">
-            <div className="search-tabs" role="tablist">
-              <button 
+        <div ref={searchRef} className="vehicle-search-panel">
+          <div className="search-panel-heading">
+            <div className="search-tabs" role="tablist" aria-label="Choose how to search">
+              <button
+                type="button"
                 className={`search-tab ${searchMode === 'part' ? 'active' : ''}`}
                 onClick={() => setSearchMode('part')}
                 role="tab"
                 aria-selected={searchMode === 'part'}
-              >
-                🔍 Part Search
-              </button>
-              <button 
-                className={`search-tab ${searchMode === 'vin' ? 'active' : ''}`}
-                onClick={() => setSearchMode('vin')}
+              >Search by part</button>
+              <button
+                type="button"
+                className={`search-tab ${searchMode === 'vehicle' ? 'active' : ''}`}
+                onClick={() => setSearchMode('vehicle')}
                 role="tab"
-                aria-selected={searchMode === 'vin'}
-              >
-                # VIN Lookup
-              </button>
+                aria-selected={searchMode === 'vehicle'}
+              >Search by vehicle</button>
             </div>
-
-            <form className="search-row" onSubmit={handleSearch}>
+            <a href="/request-part" className="search-panel-request">Can’t find it? Request a part <span aria-hidden="true">↗</span></a>
+          </div>
+          <form className="market-search-row" onSubmit={handleSearch}>
+            {searchMode === 'part' ? (
               <div className="search-box">
                 <input
-                  className={`search-input-field ${searchMode === 'vin' ? 'vin-input' : ''}`}
-                  placeholder={
-                    searchMode === 'vin' 
-                      ? 'Enter 17-character VIN...' 
-                      : 'e.g. Fuel pump, 23221-74021, Vitz 1NZ...'
-                  }
+                  className="search-input-field"
+                  placeholder="Part name, OEM number, or part code"
                   value={query}
                   onChange={e => {
                     setQuery(e.target.value)
                     setSuggestionsVisible(true)
                   }}
                   onFocus={() => setSuggestionsVisible(true)}
-                  maxLength={searchMode === 'vin' ? 17 : undefined}
-                  autoFocus
-                  aria-label={searchMode === 'vin' ? 'Vehicle Identification Number' : 'Search parts'}
+                  aria-label="Search by part name, number, or code"
                 />
-                <span className="search-icon-wrap">
-                  <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                <span className="search-icon-wrap" aria-hidden="true">
+                  <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                   </svg>
                 </span>
-                
-                <SearchSuggestions 
-                  query={query} 
-                  onSelect={goSearch}
-                  visible={suggestionsVisible && searchMode === 'part'} 
+                <SearchSuggestions query={query} onSelect={goSearch} visible={suggestionsVisible} />
+              </div>
+            ) : (
+              <div className="vehicle-fields">
+                <input
+                  className="search-input-field"
+                  placeholder="Make (e.g. Toyota)"
+                  value={vehicleMake}
+                  onChange={e => setVehicleMake(e.target.value)}
+                  aria-label="Vehicle make"
+                />
+                <input
+                  className="search-input-field"
+                  placeholder="Model or engine (e.g. Hilux, 2KD)"
+                  value={vehicleModel}
+                  onChange={e => setVehicleModel(e.target.value)}
+                  aria-label="Vehicle model or engine"
                 />
               </div>
-              <button type="submit" className="search-btn">
-                {searchMode === 'vin' ? 'Decode VIN →' : 'Search →'}
-              </button>
-            </form>
-
-            <div className="popular-row">
-              <span className="popular-label">Popular:</span>
-              {POPULAR_PARTS.slice(0, 6).map(p => (
-                <button
-                  key={p}
-                  type="button"
-                  className="popular-chip"
-                  onClick={() => goSearch(p)}
-                >
-                  {p}
-                </button>
-              ))}
-            </div>
+            )}
+            <button type="submit" className="search-btn">Search parts <span aria-hidden="true">→</span></button>
+          </form>
+          <div className="search-panel-bottom">
+            <span className="popular-label">Popular searches</span>
+            {POPULAR_PARTS.slice(0, 4).map(p => (
+              <button key={p} type="button" className="popular-chip" onClick={() => goSearch(p)}>{p}</button>
+            ))}
+            <span className="search-note">Availability is being confirmed. Check before ordering.</span>
           </div>
         </div>
       </section>
 
-      {/* ── Stats ── */}
-      <div className="stats-strip" ref={statsRef}>
-        <div className="stats-inner">
-          <div className="stat-item">
-            <div className="stat-number" aria-live="polite">
-              {statsVisible ? count288 : 0}+
-            </div>
-            <div className="stat-label">Parts in Stock</div>
+      <section className="section category-section" aria-labelledby="shop-by-part">
+        <div className="section-heading-row">
+          <div>
+            <p className="section-eyebrow">START WITH WHAT YOU KNOW</p>
+            <h2 className="section-title" id="shop-by-part">Find it by category</h2>
+            <p className="section-intro">Explore the catalogue. Listings will open as availability is confirmed.</p>
           </div>
-          <div className="stat-item">
-            <div className="stat-number" aria-live="polite">
-              {statsVisible ? count24 : 0}
-            </div>
-            <div className="stat-label">Categories</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number">COD</div>
-            <div className="stat-label">Cash on Delivery</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number" aria-live="polite">
-              {statsVisible ? count27 : 0}
-            </div>
-            <div className="stat-label">Verified Sellers</div>
-          </div>
+          <a href="/search" className="section-link">Browse all parts <span aria-hidden="true">→</span></a>
         </div>
-      </div>
+        <div className="category-grid">
+          {PART_CATEGORIES.map(category => (
+            <a key={category.value} href={`/search?category=${encodeURIComponent(category.value)}`} className="category-card">
+              <span className="category-icon" aria-hidden="true">{category.icon}</span>
+              <span className="category-title">{category.label}</span>
+              <span className="category-arrow" aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+      </section>
 
       {/* ── Makes ── */}
       <div className="section">
         <p className="section-eyebrow">
-          <span>⚡</span> Browse by make
+          <span>⌖</span> Search made familiar
         </p>
-        <h2 className="section-title">SHOP BY BRAND</h2>
+        <h2 className="section-title">Popular vehicle makes</h2>
         <div className="makes-grid">
           {MAKES.map((m, i) => (
             <MakeCard key={m.name} make={m} index={i} />
@@ -1377,9 +1502,9 @@ export default function HomePage() {
       <div className="how-section">
         <div className="section">
           <p className="section-eyebrow">
-            <span>📋</span> Simple process
+            <span>↗</span> From search to confirmation
           </p>
-          <h2 className="section-title">HOW IT WORKS</h2>
+          <h2 className="section-title">A clearer way to start</h2>
           <div className="how-grid">
             {HOW_IT_WORKS.map((s, i) => (
               <div 
@@ -1402,13 +1527,12 @@ export default function HomePage() {
       {/* ── CTA ── */}
       <div className="cta-section">
         <div className="cta-glow" aria-hidden="true" />
-        <h2 className="cta-title">READY TO FIND<br />YOUR PART?</h2>
+        <h2 className="cta-title">Looking for a part<br />that isn’t listed?</h2>
         <p className="cta-sub">
-          288+ genuine parts in stock. AI fitment verification. 
-          Stock updated weekly across Lusaka.
+          Share your vehicle details and the part you need. We’ll use that information to check availability with you.
         </p>
-        <a href="/search" className="cta-btn">
-          Browse All Parts
+        <a href="/request-part" className="cta-btn">
+          Request a Part
           <span className="arrow">→</span>
         </a>
       </div>
@@ -1416,11 +1540,10 @@ export default function HomePage() {
       {/* ── Trust bar ── */}
       <div className="trust-bar">
         {[
-          { icon: '✅', text: 'Verified Sellers Only' },
-          { icon: '🚚', text: 'Lusaka Wide Delivery' },
-          { icon: '💵', text: 'Cash on Delivery' },
-          { icon: '🛡', text: 'Fitment Guarantee' },
-          { icon: '📞', text: 'WhatsApp Support' },
+          { icon: '⌖', text: 'Made for Zambian drivers' },
+          { icon: '⚙', text: 'Search by vehicle or part' },
+          { icon: '✓', text: 'Confirm availability first' },
+          { icon: '↗', text: 'Request a part' },
         ].map(t => (
           <div key={t.text} className="trust-item">
             <span className="trust-icon" aria-hidden="true">{t.icon}</span>
