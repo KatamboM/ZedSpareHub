@@ -807,6 +807,48 @@ const CSS = `
     .part-card { padding:21px; }
   }
 
+  /* Clean parts catalogue */
+  .search-page { --amber:#efb326;--amber-dim:rgba(239,179,38,.12);--amber-glow:rgba(239,179,38,.22);--surface:#f4f6f8;--surface-2:#fff;--surface-3:#edf1f4;--surface-glass:rgba(255,255,255,.96);--border:rgba(21,45,67,.14);--border-amber:rgba(239,179,38,.38);--text:#172b40;--text-dim:#5c6c7b;--steel:#708090;--steel-light:#526476;--success:#198754;--warning:#bd8310;min-height:100vh;background:#f4f6f8;color:#172b40;font-family:Arial,Helvetica,sans-serif }
+  .search-header {position:relative;padding:24px clamp(16px,4vw,48px);background:#17334d;border-bottom:0}
+  .search-form {margin:0 auto;max-width:1120px}
+  .search-input {min-height:52px;border:1px solid #d4dde5;border-radius:5px;background:white;color:#172b40;font-family:Arial,sans-serif}
+  .search-input::placeholder {color:#81909d}
+  .search-input:focus {border-color:#5590b3;background:white;box-shadow:0 0 0 3px rgba(85,144,179,.16)}
+  .search-icon {color:#708496}
+  .search-page .search-btn {border-radius:5px;background:#f4b323;color:#172b40;font-family:Arial,sans-serif;font-weight:700}
+  .search-page .search-btn:hover {background:#ffca4d;transform:translateY(-1px);box-shadow:0 5px 16px rgba(180,124,10,.18)}
+  .search-history {max-width:1120px;margin:12px auto 0}
+  .history-label,.filter-label {font-family:Arial,sans-serif;letter-spacing:.04em;color:#667786}
+  .history-chip {border-color:#d4dde5;border-radius:4px;background:white;color:#40566a;font-family:Arial,sans-serif}
+  .filters-bar {max-width:none;padding:16px clamp(16px,4vw,48px);justify-content:center;background:white;border-bottom:1px solid #dfe4e9}
+  .filter-group {min-width:150px}
+  .filter-select,.price-input,.sort-select {border-color:#d2dbe3;border-radius:5px;background-color:white;color:#24394d;font-family:Arial,sans-serif}
+  .filter-select:focus,.price-input:focus,.sort-select:focus {border-color:#5590b3;box-shadow:0 0 0 3px rgba(85,144,179,.12)}
+  .active-filters,.results-header,.results-container {max-width:1200px}
+  .filter-chip {border-radius:4px;color:#825f0d;background:#fff8e6}
+  .results-header {padding:22px clamp(16px,4vw,48px)}
+  .results-count {color:#687887}.results-count strong {color:#172b40}
+  .sort-select {padding:10px 32px 10px 12px}
+  .view-toggle {border-color:#d8e0e7;border-radius:5px;background:white}
+  .view-btn {color:#607384}.view-btn.active {border-radius:3px;background:#e9eff4;color:#1a5b85}
+  .results-container {padding:0 clamp(16px,4vw,48px) 72px}
+  .part-card {border:1px solid #dce3e9;border-radius:6px;background:white;color:#172b40;box-shadow:0 3px 10px rgba(20,43,63,.045)}
+  .part-card::before {display:none}
+  .part-card:hover {border-color:#b3c2ce;box-shadow:0 9px 24px rgba(20,43,63,.1);transform:translateY(-2px)}
+  .card-brand {color:#223b53}.card-engine,.card-seller {color:#657585}
+  .part-card h3,.part-card h2,.part-title {color:#172b40}
+  .empty-state {color:#1c334a}
+  .empty-title {color:#172b40}.empty-text {color:#647585}
+  .filter-drawer {background:#fff;color:#172b40}
+  .filter-drawer .filter-select,.filter-drawer .price-input {background-color:#fff}
+  .filter-drawer-overlay {background:rgba(13,31,48,.48)}
+  @media(max-width:760px) {
+    .search-header {padding:16px}
+    .filters-bar {padding:12px 16px}
+    .results-header {padding:18px 16px}
+    .results-container {padding:0 16px 56px}
+  }
+
 `
 
 // ─── Status Badge Component ──────────────────────────────────────────────────
@@ -986,7 +1028,7 @@ function SearchContent() {
   
   // Filter states
   const [query, setQuery] = useState(params.get('q') || '')
-  const [category, setCategory] = useState('All')
+  const [category, setCategory] = useState(params.get('category') || 'All')
   const [make, setMake] = useState(params.get('make') || 'All')
   const [status, setStatus] = useState('All')
   const [minPrice, setMinPrice] = useState('')
@@ -1011,8 +1053,10 @@ function SearchContent() {
   useEffect(() => {
     const urlQuery = params.get('q')
     const urlMake = params.get('make')
-    if (urlQuery) setQuery(urlQuery)
+    const urlCategory = params.get('category')
+    if (urlQuery !== null) setQuery(urlQuery)
     if (urlMake) setMake(urlMake)
+    if (urlCategory && CATEGORIES.includes(urlCategory)) setCategory(urlCategory)
   }, [params])
   
   // Fetch parts
